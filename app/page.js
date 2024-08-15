@@ -5,7 +5,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { getDistance, getFinDist } from "@/utils/calc";
-
+import "./page.module.css";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
   const mapContainer = useRef(null);
@@ -42,7 +42,7 @@ const HomePage = () => {
 
         let before_record = null;
         let counter = 0;
-
+        console.log(navigator.geolocation);
         const newId = navigator.geolocation.watchPosition(
           async (position) => {
             let updateFlag = true;
@@ -75,6 +75,7 @@ const HomePage = () => {
             }
           },
           (err) => {
+            console.log(err);
             throw err;
           },
           {
@@ -134,8 +135,7 @@ const HomePage = () => {
   const LoadScript = () => {
     const script = document.createElement("script");
     console.log(123);
-    script.src =
-      "https://wemap-project.github.io/WeMap-Web-SDK-Release/assets/js/wemap-gl.js";
+    script.src = "/wemap-gl.js";
     document.head.appendChild(script);
     return new Promise((res, rej) => {
       script.onload = () => res();
@@ -247,7 +247,7 @@ const HomePage = () => {
   return (
     <>
       <div>
-        <div className="h-[calc(100vh-150px)] w-full">
+        <div className="h-[calc(100vh-150px)] w-full map-container">
           <div
             id="mapContainer"
             ref={mapContainer}
