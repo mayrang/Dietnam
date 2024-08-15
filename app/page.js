@@ -1,113 +1,265 @@
-import Image from "next/image";
+"use client";
+// import { Button } from "antd";
+// import AfterInstallation from "components/AfterInstallation";
+// import OverlayLoadingCustom from "components/Common/OverlayLoadingCustom";
 
-export default function Home() {
+import { useEffect, useState, useRef } from "react";
+import { getDistance, getFinDist } from "@/utils/calc";
+
+const HomePage = () => {
+  const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
+  const mapContainer = useRef(null);
+
+  const [coords, setcoords] = useState({
+    err: -1,
+  });
+  const [locationList, setLocationList] = useState([]);
+  const [watchId, setWatchId] = useState(-1);
+
+  const [recording, setRecording] = useState(false); //기록 중
+  const [readyRecord, setReadyRecord] = useState(false); //시작가능
+  const [userCheck, setUserCheck] = useState(false); //유저 확인
+
+  //이전 기록 리셋
+  const resetButtonHandler = async (e) => {
+    e.preventDefault();
+    try {
+      setReadyRecord(true);
+
+      alert("기록 삭제 완료");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  //자동 레코드
+  const locationAutoButtenListener = async (e) => {
+    e.preventDefault();
+    console.log("start");
+    if (navigator.geolocation) {
+      try {
+        setRecording(false);
+
+        let before_record = null;
+        let counter = 0;
+
+        const newId = navigator.geolocation.watchPosition(
+          async (position) => {
+            let updateFlag = true;
+            const new_record = {
+              err: 0,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
+            //시작
+            console.log(before_record, new_record);
+            if (before_record !== null) {
+              const dist = getDistance({
+                lat1: before_record.latitude,
+                lon1: before_record.longitude,
+                lat2: new_record.latitude,
+                lon2: new_record.longitude,
+              });
+
+              //이동거리가 50m미만이면 안바뀜
+              if (dist < 0.0001) {
+                updateFlag = false;
+              }
+            }
+            if (updateFlag) {
+              setcoords(new_record);
+              before_record = new_record;
+
+              setLocationList((locationList) => [...locationList, new_record]);
+              new_record.counter = counter++;
+            }
+          },
+          (err) => {
+            throw err;
+          },
+          {
+            enableHighAccuracy: false,
+            maximumAge: 2000,
+            timeout: 5000,
+          }
+        );
+        setRecording(true);
+        setWatchId(newId);
+      } catch (err) {
+        alert(err.message);
+      }
+    } else {
+      alert("GPS문제, 기록불가");
+    }
+  };
+  //자동 종료
+  const finishAutoRecordButtonListener = async (e) => {
+    e.preventDefault();
+    try {
+      if (watchId !== -1) {
+        navigator.geolocation.clearWatch(watchId);
+        setWatchId(-1);
+        const finDist = getFinDist(locationList);
+        let finish = 1;
+        if (locationList.length < 3 || finDist > 0.2) {
+          finish = 0;
+        }
+
+        if (finish === 0) {
+          alert(
+            "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
+          );
+        }
+
+        setLocationList([]);
+        setRecordcode(-1);
+        setReadyRecord(true);
+        setRecording(false);
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const locationToString = (coord, idx) => (
+    <div key={idx}>
+      latitude : {coord.latitude} & longitude : {coord.longitude}
+    </div>
+  );
+
+  const showLocationList = locationList.map((coord, idx) =>
+    locationToString(coord, idx)
+  );
+
+  const LoadScript = () => {
+    const script = document.createElement("script");
+    console.log(123);
+    script.src =
+      "https://wemap-project.github.io/WeMap-Web-SDK-Release/assets/js/wemap-gl.js";
+    document.head.appendChild(script);
+    return new Promise((res, rej) => {
+      script.onload = () => res();
+      script.onerror = () => rej();
+    });
+  };
+
+  useEffect(() => {
+    LoadScript()
+      .then(() => {
+        console.log(456);
+        // 지도를 초기화하는 함수
+        const initializeMap = () => {
+          const map = new window.wemapgl.WeMap({
+            container: mapContainer.current,
+            key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+            style: "bright",
+            center: currentPosition,
+            zoom: 13,
+          });
+
+          var directions = new window.wemapgl.WeDirections({
+            key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+          });
+          map.addControl(directions);
+
+          var filter = new window.wemapgl.WeFilterControl({
+            filters: {
+              cuisine: {
+                text: "Ẩm thực",
+                "fa-icon": "fa-cutlery",
+                color: "#C70039",
+                featureClasses: [
+                  "cafe",
+                  "restaurant",
+                  "fast_food",
+                  "food_court",
+                ],
+                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
+              },
+              hotel: {
+                text: "Nhà nghỉ",
+                "fa-icon": "fa-hotel",
+                color: "#C70039",
+                featureClasses: ["hotel", "guest_house", "motel"],
+                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
+              },
+              entertainment: {
+                text: "Giải trí",
+                "fa-icon": "fa-glass",
+                color: "#C70039",
+                featureClasses: [
+                  "bar",
+                  "nightclub",
+                  "pub",
+                  "theatre",
+                  "casino",
+                  "cinema",
+                ],
+                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
+              },
+              shopping: {
+                text: "Mua sắm",
+                "fa-icon": "fa-shopping-bag",
+                color: "#C70039",
+                featureClasses: [
+                  "shop",
+                  "grocery",
+                  "alcohol_shop",
+                  "jewelry",
+                  "mall",
+                  "supermarket",
+                  "fashion",
+                  "convenience",
+                  "marketplace",
+                ],
+                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
+              },
+            },
+          });
+          console.log("check", currentPosition);
+          const marker = new window.wemapgl.Marker()
+            .setLngLat(
+              currentPosition ?? [105.82387887026971, 21.042387911156695]
+            )
+            .addTo(map);
+
+          // map.addTo(currentPositionMarker);
+          console.log(marker, "markder");
+          map.addControl(filter, "top-left");
+          map.on("click", (e) => {
+            console.log(e.lngLat);
+          });
+        };
+
+        // 초기화 후 currentPosition이 업데이트되었는지 확인
+        const intervalId = setInterval(() => {
+          console.log(789);
+          clearInterval(intervalId);
+          console.log(currentPosition);
+          initializeMap();
+        }, 0);
+      })
+      .catch(() => {
+        console.error("Script loading failed! Handle this error");
+      });
+  }, [currentPosition]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div>
+        <div className="h-[calc(100vh-150px)] w-full">
+          <div
+            id="mapContainer"
+            ref={mapContainer}
+            className="h-full w-full"
+          ></div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <button onClick={locationAutoButtenListener}>측정시작</button>
+      <button onClick={finishAutoRecordButtonListener}>측정종료</button>
+      {...showLocationList}
+    </>
   );
-}
+};
+
+export default HomePage;
