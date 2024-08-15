@@ -247,7 +247,7 @@ const HomePage = () => {
   return (
     <>
       <div>
-        <div className="h-[calc(100vh-150px)] w-full map-container">
+        <div className="h-[calc(100vh-150px)] w-full">
           <div
             id="mapContainer"
             ref={mapContainer}
