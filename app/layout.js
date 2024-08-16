@@ -1,11 +1,16 @@
-"use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Layout } from "antd";
-import Head from "next/head";
 
-const { Content } = Layout;
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Dietnam",
+  description: "Find walking and running routes in Vietnam",
+  icons: {
+    icon: "/logo.png",
+  },
+};
 
 export default function RootLayout({ children }) {
   return (

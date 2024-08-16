@@ -10,34 +10,20 @@ const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState();
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
-  const [coords, setcoords] = useState([]);
+
   const [locationList, setLocationList] = useState([]);
   const [watchId, setWatchId] = useState(-1);
   const [currentMarker, setCurrentMarker] = useState();
-  const [recording, setRecording] = useState(false); //기록 중
-  const [readyRecord, setReadyRecord] = useState(false); //시작가능
-  const [userCheck, setUserCheck] = useState(false); //유저 확인
-  const [lineId, setLineId] = useState(0);
-  //이전 기록 리셋
-  const resetButtonHandler = async (e) => {
-    e.preventDefault();
-    try {
-      setReadyRecord(true);
 
-      alert("기록 삭제 완료");
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  const [lineId, setLineId] = useState(0);
 
   //자동 레코드
   const locationAutoButtenListener = async (e) => {
     e.preventDefault();
     console.log("start");
+
     if (navigator.geolocation) {
       try {
-        setRecording(false);
-
         let before_record = null;
 
         console.log(navigator.geolocation);
@@ -59,10 +45,9 @@ const HomePage = () => {
                 lon2: new_record.longitude,
               });
 
-              //이동거리가 5m미만이면 안바뀜
-              // if (dist < 0.001) {
-              // updateFlag = false;
-              // }
+              if (dist < 0.01) {
+                updateFlag = false;
+              }
             }
             if (updateFlag) {
               setcoords(new_record);
@@ -87,12 +72,11 @@ const HomePage = () => {
             throw err;
           },
           {
-            enableHighAccuracy: false,
+            enableHighAccuracy: true,
             maximumAge: 2000,
             timeout: 5000,
           }
         );
-        setRecording(true);
 
         setWatchId(newId);
       } catch (err) {
@@ -149,9 +133,6 @@ const HomePage = () => {
         });
 
         setLocationList([]);
-        //setRecordcode(-1);
-        setReadyRecord(true);
-        setRecording(false);
       }
     } catch (err) {
       alert(err.message);
