@@ -111,29 +111,31 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
-        var direction = new window.wemapgl.WeDirections({
-          key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+        map.addSource("directions", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: locationList,
+                  type: "LineString",
+                },
+              },
+            ],
+          },
         });
-        console.log(direction, "before");
-        for (let i = 0; i < locationList.length; i++) {
-          if (i === 0) {
-            direction.setOrigin({
-              latitude: locationList[i][1],
-              longitude: locationList[i][0],
-            });
-          }
-          if (i === locationList.length - 1) {
-            direction.setDestination({
-              latitude: locationList[i][1],
-              longitude: locationList[i][0],
-            });
-          }
-          direction.addWaypoint(i, {
-            latitude: locationList[i][1],
-            longitude: locationList[i][0],
-          });
-        }
-        console.log(direction);
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "directions",
+          paint: {
+            "line-color": "#888",
+            "line-width": 8,
+          },
+        });
         setLocationList([]);
         //setRecordcode(-1);
         setReadyRecord(true);
@@ -179,11 +181,6 @@ const HomePage = () => {
             zoom: 13,
           });
 
-          var directions = new window.wemapgl.WeDirections({
-            key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
-          });
-          map.addControl(directions);
-
           console.log("check", currentPosition);
           const marker = new window.wemapgl.Marker()
             .setLngLat(
@@ -199,7 +196,6 @@ const HomePage = () => {
           console.log("map", map);
           setMap(map);
           setCurrentMarker(marker);
-          console.log("direction", directions);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
