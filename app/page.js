@@ -9,7 +9,7 @@ import "./page.module.css";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
   const mapContainer = useRef(null);
-
+  const [map, setMap] = useState();
   const [coords, setcoords] = useState({
     err: -1,
   });
@@ -52,6 +52,13 @@ const HomePage = () => {
               longitude: position.coords.longitude,
             };
             //시작
+            if (map) {
+              console.log(new_record, "in map");
+              map.setCenter([
+                position.coords.longitude,
+                position.coords.latitude,
+              ]);
+            }
             console.log(before_record, new_record);
             if (before_record !== null) {
               const dist = getDistance({
@@ -61,8 +68,8 @@ const HomePage = () => {
                 lon2: new_record.longitude,
               });
 
-              //이동거리가 50m미만이면 안바뀜
-              if (dist < 0.0001) {
+              //이동거리가 5m미만이면 안바뀜
+              if (dist < 0.005) {
                 updateFlag = false;
               }
             }
@@ -85,6 +92,7 @@ const HomePage = () => {
           }
         );
         setRecording(true);
+
         setWatchId(newId);
       } catch (err) {
         alert(err.message);
@@ -102,9 +110,9 @@ const HomePage = () => {
         setWatchId(-1);
         const finDist = getFinDist(locationList);
         let finish = 1;
-        if (locationList.length < 3 || finDist > 0.2) {
-          finish = 0;
-        }
+        // if (locationList.length < 3 || finDist > 0.2) {
+        finish = 0;
+        // }
 
         if (finish === 0) {
           alert(
@@ -229,6 +237,8 @@ const HomePage = () => {
           map.on("click", (e) => {
             console.log(e.lngLat);
           });
+          console.log("map", map);
+          setMap(map);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
