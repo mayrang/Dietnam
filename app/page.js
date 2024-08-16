@@ -69,6 +69,17 @@ const HomePage = () => {
               before_record = new_record;
               setLineId((prev) => prev + 1);
               setLocationList((locationList) => [...locationList, new_record]);
+              if (map && currentMarker) {
+                console.log(new_record, "in map");
+                map.setCenter([
+                  position.coords.longitude,
+                  position.coords.latitude,
+                ]);
+                currentMarker.setLngLat([
+                  position.coords.longitude,
+                  position.coords.latitude,
+                ]);
+              }
             }
           },
           (err) => {
