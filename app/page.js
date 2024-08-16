@@ -104,7 +104,7 @@ const HomePage = () => {
         const finDist = getFinDist(locationList);
         let finish = 1;
         // if (locationList.length < 3 || finDist > 0.2) {
-        finish = 0;
+        //finish = 0;
         // }
 
         if (finish === 0) {
@@ -112,17 +112,29 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
+        console.log(direction);
         for (let i = 0; i < locationList.length; i++) {
           if (i === 0) {
-            direction.setOrigin(locationList[i]);
+            direction.setOrigin({
+              latitude: locationList[i][1],
+              longitude: locationList[i][0],
+            });
           }
           if (i === locationList.length - 1) {
-            direction.setDestination(locationList[i]);
+            direction.setDestination({
+              latitude: locationList[i][1],
+              longitude: locationList[i][0],
+            });
           }
-          direction.addWaypoint(locationList[i]);
+          direction.addWaypoint(i, {
+            latitude: locationList[i][1],
+            longitude: locationList[i][0],
+          });
         }
+        console.log(direction);
+        map.addControl(direction);
         setLocationList([]);
-        setRecordcode(-1);
+        //setRecordcode(-1);
         setReadyRecord(true);
         setRecording(false);
       }
@@ -241,7 +253,8 @@ const HomePage = () => {
           console.log("map", map);
           setMap(map);
           setCurrentMarker(marker);
-          setDirection(direction);
+          console.log("direction", directions);
+          setDirection(directions);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
