@@ -50,7 +50,7 @@ const HomePage = () => {
               }
             }
             if (updateFlag) {
-              setcoords(new_record);
+              setCoords(new_record);
               before_record = new_record;
               setLineId((prev) => prev + 1);
               setLocationList((locationList) => [...locationList, new_record]);
