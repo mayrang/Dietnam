@@ -14,7 +14,7 @@ const HomePage = () => {
   const [locationList, setLocationList] = useState([]);
   const [watchId, setWatchId] = useState(-1);
   const [currentMarker, setCurrentMarker] = useState();
-
+  const [coords, setCoords] = useState([]);
   const [lineId, setLineId] = useState(0);
 
   //자동 레코드
