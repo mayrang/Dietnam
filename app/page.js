@@ -17,7 +17,7 @@ const HomePage = () => {
   const [recording, setRecording] = useState(false); //기록 중
   const [readyRecord, setReadyRecord] = useState(false); //시작가능
   const [userCheck, setUserCheck] = useState(false); //유저 확인
-
+  const [lineId, setLineId] = useState(0);
   //이전 기록 리셋
   const resetButtonHandler = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const HomePage = () => {
         setRecording(false);
 
         let before_record = null;
-        let counter = 0;
+
         console.log(navigator.geolocation);
         const newId = navigator.geolocation.watchPosition(
           async (position) => {
@@ -67,10 +67,8 @@ const HomePage = () => {
             if (updateFlag) {
               setcoords(new_record);
               before_record = new_record;
-
+              setLineId((prev) => prev + 1);
               setLocationList((locationList) => [...locationList, new_record]);
-
-              new_record.counter = counter++;
             }
           },
           (err) => {
@@ -129,7 +127,7 @@ const HomePage = () => {
             },
           });
           map.addLayer({
-            id: "route",
+            id: `router-${lineId}`,
             type: "line",
             source: "directions",
             paint: {
