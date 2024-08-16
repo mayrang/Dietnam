@@ -9,7 +9,6 @@ import "./page.module.css";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
   const mapContainer = useRef(null);
-  const [direction, setDirection] = useState();
   const [map, setMap] = useState();
   const [coords, setcoords] = useState([]);
   const [locationList, setLocationList] = useState([]);
@@ -112,7 +111,10 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
-        console.log(direction);
+        var direction = new window.wemapgl.WeDirections({
+          key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+        });
+        console.log(direction, "before");
         for (let i = 0; i < locationList.length; i++) {
           if (i === 0) {
             direction.setOrigin({
@@ -132,7 +134,6 @@ const HomePage = () => {
           });
         }
         console.log(direction);
-        map.addControl(direction);
         setLocationList([]);
         //setRecordcode(-1);
         setReadyRecord(true);
@@ -183,60 +184,6 @@ const HomePage = () => {
           });
           map.addControl(directions);
 
-          var filter = new window.wemapgl.WeFilterControl({
-            filters: {
-              cuisine: {
-                text: "Ẩm thực",
-                "fa-icon": "fa-cutlery",
-                color: "#C70039",
-                featureClasses: [
-                  "cafe",
-                  "restaurant",
-                  "fast_food",
-                  "food_court",
-                ],
-                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
-              },
-              hotel: {
-                text: "Nhà nghỉ",
-                "fa-icon": "fa-hotel",
-                color: "#C70039",
-                featureClasses: ["hotel", "guest_house", "motel"],
-                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
-              },
-              entertainment: {
-                text: "Giải trí",
-                "fa-icon": "fa-glass",
-                color: "#C70039",
-                featureClasses: [
-                  "bar",
-                  "nightclub",
-                  "pub",
-                  "theatre",
-                  "casino",
-                  "cinema",
-                ],
-                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
-              },
-              shopping: {
-                text: "Mua sắm",
-                "fa-icon": "fa-shopping-bag",
-                color: "#C70039",
-                featureClasses: [
-                  "shop",
-                  "grocery",
-                  "alcohol_shop",
-                  "jewelry",
-                  "mall",
-                  "supermarket",
-                  "fashion",
-                  "convenience",
-                  "marketplace",
-                ],
-                layers: ["poi-level-1", "poi-level-2", "poi-level-3"],
-              },
-            },
-          });
           console.log("check", currentPosition);
           const marker = new window.wemapgl.Marker()
             .setLngLat(
@@ -246,7 +193,6 @@ const HomePage = () => {
 
           // map.addTo(currentPositionMarker);
           console.log(marker, "markder");
-          map.addControl(filter, "top-left");
           map.on("click", (e) => {
             console.log(e.lngLat);
           });
@@ -254,7 +200,6 @@ const HomePage = () => {
           setMap(map);
           setCurrentMarker(marker);
           console.log("direction", directions);
-          setDirection(directions);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
