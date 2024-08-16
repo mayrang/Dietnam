@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { getDistance, getFinDist } from "@/utils/calc";
 import "./page.module.css";
 const HomePage = () => {
-  const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
+  const [currentPosition, setCurrentPosition] = useState();
   const mapContainer = useRef(null);
   const [map, setMap] = useState();
   const [coords, setcoords] = useState([]);
@@ -111,31 +111,34 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
-        map.addSource("directions", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  coordinates: locationList,
-                  type: "LineString",
+        map.on("load", function () {
+          map.addSource("directions", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    coordinates: locationList,
+                    type: "LineString",
+                  },
                 },
-              },
-            ],
-          },
+              ],
+            },
+          });
+          map.addLayer({
+            id: "route",
+            type: "line",
+            source: "directions",
+            paint: {
+              "line-color": "#e74c3c",
+              "line-width": 8,
+            },
+          });
         });
-        map.addLayer({
-          id: "route",
-          type: "line",
-          source: "directions",
-          paint: {
-            "line-color": "#888",
-            "line-width": 8,
-          },
-        });
+
         setLocationList([]);
         //setRecordcode(-1);
         setReadyRecord(true);
@@ -148,7 +151,7 @@ const HomePage = () => {
 
   const locationToString = (coord, idx) => (
     <div key={idx}>
-      latitude : {coord.latitude} & longitude : {coord.longitude}
+      latitude : {coord[0]} & longitude : {coord[1]}
     </div>
   );
 
@@ -168,43 +171,94 @@ const HomePage = () => {
   };
 
   useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          console.log(
+            `위도: ${latitude}, 경도: ${longitude}, 정확도: ${accuracy}미터`
+          );
+          setCurrentPosition([longitude, latitude]);
+        },
+        (error) => {
+          console.error(`위치 정보를 가져올 수 없습니다: ${error.message}`);
+        },
+        {
+          enableHighAccuracy: true, // 정확도 우선 모드
+          timeout: 10000, // 10초 이내에 응답 없으면 에러 발생
+          maximumAge: 0, // 항상 최신 위치 정보 수집
+        }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
     LoadScript()
       .then(() => {
-        console.log(456);
-        // 지도를 초기화하는 함수
-        const initializeMap = () => {
-          const map = new window.wemapgl.WeMap({
-            container: mapContainer.current,
-            key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
-            style: "bright",
-            center: currentPosition,
-            zoom: 13,
-          });
+        console.log(456, currentPosition);
+        if (currentPosition) {
+          // 지도를 초기화하는 함수
+          const initializeMap = () => {
+            const map = new window.wemapgl.WeMap({
+              container: mapContainer.current,
+              key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+              style: "bright",
+              center: currentPosition,
+              zoom: 13,
+            });
 
-          console.log("check", currentPosition);
-          const marker = new window.wemapgl.Marker()
-            .setLngLat(
-              currentPosition ?? [105.82387887026971, 21.042387911156695]
-            )
-            .addTo(map);
+            console.log("check", currentPosition);
+            const marker = new window.wemapgl.Marker()
+              .setLngLat(currentPosition)
+              .addTo(map);
 
-          // map.addTo(currentPositionMarker);
-          console.log(marker, "markder");
-          map.on("click", (e) => {
-            console.log(e.lngLat);
-          });
-          console.log("map", map);
-          setMap(map);
-          setCurrentMarker(marker);
-        };
+            // map.addTo(currentPositionMarker);
+            console.log(marker, "markder");
+            map.on("click", (e) => {
+              console.log(e.lngLat);
+            });
+            console.log("map", map);
+            setMap(map);
+            setCurrentMarker(marker);
+            map.on("load", function () {
+              map.addSource("directions", {
+                type: "geojson",
+                data: {
+                  type: "FeatureCollection",
+                  features: [
+                    {
+                      type: "Feature",
+                      properties: {},
+                      geometry: {
+                        coordinates: [
+                          [105.80138881822967, 21.030069867844645],
+                          [105.76748242980545, 21.018405393371154],
+                        ],
+                        type: "LineString",
+                      },
+                    },
+                  ],
+                },
+              });
+              map.addLayer({
+                id: "route",
+                type: "line",
+                source: "directions",
+                paint: {
+                  "line-color": "#e74c3c",
+                  "line-width": 8,
+                },
+              });
+            });
+          };
 
-        // 초기화 후 currentPosition이 업데이트되었는지 확인
-        const intervalId = setInterval(() => {
-          console.log(789);
-          clearInterval(intervalId);
-          console.log(currentPosition);
-          initializeMap();
-        }, 0);
+          // 초기화 후 currentPosition이 업데이트되었는지 확인
+          const intervalId = setInterval(() => {
+            clearInterval(intervalId);
+
+            initializeMap();
+          }, 0);
+        }
       })
       .catch(() => {
         console.error("Script loading failed! Handle this error");
