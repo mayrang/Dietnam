@@ -60,7 +60,7 @@ const HomePage = () => {
               });
 
               //이동거리가 5m미만이면 안바뀜
-              if (dist < 0.005) {
+              if (dist < 0.001) {
                 updateFlag = false;
               }
             }
