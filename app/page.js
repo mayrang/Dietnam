@@ -9,10 +9,9 @@ import "./page.module.css";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState([105.1, 21.0]);
   const mapContainer = useRef(null);
+  const [direction, setDirection] = useState();
   const [map, setMap] = useState();
-  const [coords, setcoords] = useState({
-    err: -1,
-  });
+  const [coords, setcoords] = useState([]);
   const [locationList, setLocationList] = useState([]);
   const [watchId, setWatchId] = useState(-1);
   const [currentMarker, setCurrentMarker] = useState();
@@ -46,23 +45,12 @@ const HomePage = () => {
         const newId = navigator.geolocation.watchPosition(
           async (position) => {
             let updateFlag = true;
-            const new_record = {
-              err: 0,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            };
+            const new_record = [
+              position.coords.longitude,
+              position.coords.latitude,
+            ];
             //시작
-            if (map && currentMarker) {
-              console.log(new_record, "in map");
-              map.setCenter([
-                position.coords.longitude,
-                position.coords.latitude,
-              ]);
-              currentMarker.setLngLat([
-                position.coords.longitude,
-                position.coords.latitude,
-              ]);
-            }
+
             console.log(before_record, new_record);
             if (before_record !== null) {
               const dist = getDistance({
@@ -82,6 +70,7 @@ const HomePage = () => {
               before_record = new_record;
 
               setLocationList((locationList) => [...locationList, new_record]);
+
               new_record.counter = counter++;
             }
           },
@@ -123,7 +112,15 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
-
+        for (let i = 0; i < locationList.length; i++) {
+          if (i === 0) {
+            direction.setOrigin(locationList[i]);
+          }
+          if (i === locationList.length - 1) {
+            direction.setDestination(locationList[i]);
+          }
+          direction.addWaypoint(locationList[i]);
+        }
         setLocationList([]);
         setRecordcode(-1);
         setReadyRecord(true);
@@ -244,6 +241,7 @@ const HomePage = () => {
           console.log("map", map);
           setMap(map);
           setCurrentMarker(marker);
+          setDirection(direction);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
