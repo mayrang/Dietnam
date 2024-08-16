@@ -109,32 +109,32 @@ const HomePage = () => {
             "정상적인 종료 조건이 아닙니다.(3곳 이상 방문, 시작점, 마지막점 200m이내)"
           );
         }
-        map.on("load", function () {
-          map.addSource("directions", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [
-                {
-                  type: "Feature",
-                  properties: {},
-                  geometry: {
-                    coordinates: locationList,
-                    type: "LineString",
-                  },
+        console.log(locationList);
+
+        await map.addSource("directions", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: locationList,
+                  type: "LineString",
                 },
-              ],
-            },
-          });
-          map.addLayer({
-            id: `router-${lineId}`,
-            type: "line",
-            source: "directions",
-            paint: {
-              "line-color": "#e74c3c",
-              "line-width": 8,
-            },
-          });
+              },
+            ],
+          },
+        });
+        map.addLayer({
+          id: `router-${lineId}`,
+          type: "line",
+          source: "directions",
+          paint: {
+            "line-color": "#e74c3c",
+            "line-width": 8,
+          },
         });
 
         setLocationList([]);
@@ -218,36 +218,6 @@ const HomePage = () => {
             console.log("map", map);
             setMap(map);
             setCurrentMarker(marker);
-            map.on("load", function () {
-              map.addSource("directions", {
-                type: "geojson",
-                data: {
-                  type: "FeatureCollection",
-                  features: [
-                    {
-                      type: "Feature",
-                      properties: {},
-                      geometry: {
-                        coordinates: [
-                          [105.80138881822967, 21.030069867844645],
-                          [105.76748242980545, 21.018405393371154],
-                        ],
-                        type: "LineString",
-                      },
-                    },
-                  ],
-                },
-              });
-              map.addLayer({
-                id: "route",
-                type: "line",
-                source: "directions",
-                paint: {
-                  "line-color": "#e74c3c",
-                  "line-width": 8,
-                },
-              });
-            });
           };
 
           // 초기화 후 currentPosition이 업데이트되었는지 확인
