@@ -15,7 +15,7 @@ const HomePage = () => {
   });
   const [locationList, setLocationList] = useState([]);
   const [watchId, setWatchId] = useState(-1);
-
+  const [currentMarker, setCurrentMarker] = useState();
   const [recording, setRecording] = useState(false); //기록 중
   const [readyRecord, setReadyRecord] = useState(false); //시작가능
   const [userCheck, setUserCheck] = useState(false); //유저 확인
@@ -52,9 +52,13 @@ const HomePage = () => {
               longitude: position.coords.longitude,
             };
             //시작
-            if (map) {
+            if (map && currentMarker) {
               console.log(new_record, "in map");
               map.setCenter([
+                position.coords.longitude,
+                position.coords.latitude,
+              ]);
+              currentMarker.setLngLat([
                 position.coords.longitude,
                 position.coords.latitude,
               ]);
@@ -239,6 +243,7 @@ const HomePage = () => {
           });
           console.log("map", map);
           setMap(map);
+          setCurrentMarker(marker);
         };
 
         // 초기화 후 currentPosition이 업데이트되었는지 확인
