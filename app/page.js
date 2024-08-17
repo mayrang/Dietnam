@@ -45,9 +45,9 @@ const HomePage = () => {
                 lon2: new_record.longitude,
               });
 
-              if (dist < 0.01) {
-                updateFlag = false;
-              }
+              // if (dist < 0.01) {
+              //   updateFlag = false;
+              // }
             }
             if (updateFlag) {
               setCoords(new_record);
