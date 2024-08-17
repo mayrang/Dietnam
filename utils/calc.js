@@ -32,31 +32,41 @@ export function getFinDist(locationList) {
   });
   return finDist;
 }
+export function getCircleCoordinates(lon, lat, radiusM, numPoints = 65) {
+  const earthRadius = 6371000; // 지구 반경 (미터 단위)
+  const coordinates = [[]];
 
-export function getLocation() {
-  return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
-      const now = new Date();
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            err: 0,
-            time: now.toLocaleTimeString(),
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        (err) => {
-          resolve({
-            err: -1,
-            latitude: -1,
-            longitude: -1,
-          });
-        },
-        { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 },
+  const latRad = toRadians(lat);
+  const lonRad = toRadians(lon);
+
+  for (let i = 0; i < numPoints; i++) {
+    const angle = (i / numPoints) * 2 * Math.PI;
+
+    const latPoint = Math.asin(
+      Math.sin(latRad) * Math.cos(radiusM / earthRadius) +
+        Math.cos(latRad) * Math.sin(radiusM / earthRadius) * Math.cos(angle)
+    );
+
+    const lonPoint =
+      lonRad +
+      Math.atan2(
+        Math.sin(angle) * Math.sin(radiusM / earthRadius) * Math.cos(latRad),
+        Math.cos(radiusM / earthRadius) - Math.sin(latRad) * Math.sin(latPoint)
       );
-    } else {
-      reject({ error: -2, latitude: -1, longitude: -1 });
-    }
-  });
+
+    const latPointDeg = toDegrees(latPoint);
+    const lonPointDeg = toDegrees(lonPoint);
+
+    coordinates[0].push([lonPointDeg, latPointDeg]);
+  }
+
+  return coordinates;
+}
+
+function toRadians(degrees) {
+  return (degrees * Math.PI) / 180;
+}
+
+function toDegrees(radians) {
+  return (radians * 180) / Math.PI;
 }

@@ -4,7 +4,7 @@
 // import OverlayLoadingCustom from "components/Common/OverlayLoadingCustom";
 
 import { useEffect, useState, useRef } from "react";
-import { getDistance, getFinDist } from "@/utils/calc";
+import { getCircleCoordinates, getDistance, getFinDist } from "@/utils/calc";
 import "./page.module.css";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState();
@@ -16,7 +16,7 @@ const HomePage = () => {
   const [currentMarker, setCurrentMarker] = useState();
   const [coords, setCoords] = useState([]);
   const [lineId, setLineId] = useState(0);
-
+  const [circleId, setCircleId] = useState();
   //자동 레코드
   const locationAutoButtenListener = async (e) => {
     e.preventDefault();
@@ -24,6 +24,7 @@ const HomePage = () => {
 
     if (navigator.geolocation) {
       try {
+        let prev_id = null;
         let before_record = null;
 
         console.log(navigator.geolocation);
@@ -36,7 +37,7 @@ const HomePage = () => {
             ];
             //시작
 
-            console.log(before_record, new_record);
+            console.log(position, "position");
             if (before_record !== null) {
               const dist = getDistance({
                 lat1: before_record.latitude,
@@ -52,10 +53,9 @@ const HomePage = () => {
             if (updateFlag) {
               setCoords(new_record);
               before_record = new_record;
-              setLineId((prev) => prev + 1);
+
               setLocationList((locationList) => [...locationList, new_record]);
               if (map && currentMarker) {
-                console.log(new_record, "in map");
                 map.setCenter([
                   position.coords.longitude,
                   position.coords.latitude,
@@ -64,6 +64,46 @@ const HomePage = () => {
                   position.coords.longitude,
                   position.coords.latitude,
                 ]);
+
+                if (prev_id) {
+                  map.removeLayer(`currentCircle-${prev_id}`);
+                }
+
+                const randomId = Math.floor(Math.random() * 100000000);
+
+                await map.addSource(`currentCircle-${randomId}`, {
+                  type: "geojson",
+                  data: {
+                    type: "FeatureCollection",
+                    features: [
+                      {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                          coordinates: getCircleCoordinates(
+                            position.coords.longitude,
+                            position.coords.latitude,
+                            position.coords.accuracy
+                          ),
+                          type: "Polygon",
+                        },
+                      },
+                    ],
+                  },
+                });
+
+                map.addLayer({
+                  id: `currentCircle-${randomId}`,
+                  type: "fill",
+                  source: `currentCircle-${randomId}`,
+                  paint: {
+                    "fill-outline-color": "#e74c3c",
+                    "fill-opacity": 0.3,
+                    //"fill-stroke-width": 2,
+                    "fill-color": "#3498db",
+                  },
+                });
+                prev_id = randomId;
               }
             }
           },
@@ -106,7 +146,7 @@ const HomePage = () => {
         }
         console.log(locationList);
 
-        await map.addSource("directions", {
+        await map.addSource(`directions-${lineId}`, {
           type: "geojson",
           data: {
             type: "FeatureCollection",
@@ -125,13 +165,13 @@ const HomePage = () => {
         map.addLayer({
           id: `router-${lineId}`,
           type: "line",
-          source: "directions",
+          source: `directions-${lineId}`,
           paint: {
             "line-color": "#e74c3c",
             "line-width": 8,
           },
         });
-
+        setLineId((prev) => prev + 1);
         setLocationList([]);
       }
     } catch (err) {
