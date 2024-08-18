@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Layout } from "antd";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +20,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className={inter.className}>
-        {/* <Layout className="layout-bg relative min-h-screen bg-no-repeat">
-          <Content className={"p-10"}> */}
-        <div className="rounded-md border-2 bg-white p-4 shadow-md">
-          {children}
-        </div>
+      <body
+        className={`${inter.className} w-screen h-screen flex items-center justify-center`}
+      >
+        <div className=" max-w-md w-full h-full ">{children}</div>
         {/* </Content>
         </Layout> */}
       </body>
