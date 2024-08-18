@@ -5,3 +5,9 @@
 .map-container .mapboxgl-canvas-container:nth-child(2) {
   display: none;
 }
+
+video {
+  position: absolute;
+
+  z-index: 7 !important;
+}

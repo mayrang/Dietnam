@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${inter.className} w-screen h-screen flex items-center justify-center`}
+        className={`${inter.className} w-screen h-screen overflow-x-hidden flex items-center justify-center`}
       >
-        <div className=" max-w-md w-full h-full ">{children}</div>
+        <div className=" max-w-md w-full h-full relative ">{children}</div>
         {/* </Content>
         </Layout> */}
       </body>

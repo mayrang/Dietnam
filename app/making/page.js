@@ -8,6 +8,7 @@ import { getCircleCoordinates, getDistance, getFinDist } from "@/utils/calc";
 import "./page.module.css";
 import { supabase } from "@/supabase/supabase";
 import { Camera } from "react-camera-pro";
+import Image from "next/image";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState();
   const mapContainer = useRef(null);
@@ -290,17 +291,26 @@ const HomePage = () => {
       {step === 0 && (
         <>
           {isStartCamera ? (
-            <div className="relative">
-              <Camera className="h-24" ref={startCamera} />
-              <img src={startImage} alt="Taken photo" />
-              <button className="z-10 absolute" onClick={onStartCamera}>
+            <>
+              <Camera ref={startCamera} facingMode="environment" />
+
+              <button
+                className="z-10 absolute bottom-5 left-1/2 -translate-x-1/2"
+                onClick={onStartCamera}
+              >
                 Take photo
               </button>
-            </div>
+            </>
           ) : (
             <>
               <button onClick={() => setIsStartCamera(true)}>사진 찍기</button>
-              <img src={startImage} alt="Taken photo" />
+              <Image
+                className="absolute z-4 w-full overflow-hidden "
+                width={400}
+                height={500}
+                src={startImage}
+                alt="Taken photo"
+              />
             </>
           )}
         </>
