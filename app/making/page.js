@@ -9,6 +9,8 @@ import "./page.module.css";
 import { supabase } from "@/supabase/supabase";
 import { Camera } from "react-camera-pro";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { dataURIToFile } from "@/utils/util";
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState();
   const mapContainer = useRef(null);
@@ -22,13 +24,71 @@ const HomePage = () => {
   const [step, setStep] = useState(0);
   const [startImage, setStartImage] = useState();
   const [isStartCamera, setIsStartCamera] = useState(false);
-
+  const [isFinishCamera, setIsFinishCamera] = useState(false);
+  const [finishImage, setFinishImage] = useState();
   const startCamera = useRef(null);
   const finishCamera = useRef(null);
+  const [json, setJson] = useState();
+  const router = useRouter();
 
-  const onStartCamera = () => {
-    setStartImage(startCamera.current.takePhoto());
+  const bucket = "wemap-route-image";
+
+  const onStartCamera = async () => {
     setIsStartCamera(false);
+    const random = Math.floor(Math.random() * 100000000);
+    const filename = `startImage-${random}`;
+
+    let image = startCamera.current.takePhoto();
+
+    const file = dataURIToFile(image, filename);
+    console.log(startCamera.current);
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .upload(filename, file);
+    if (error) {
+      console.error("upload start image error", error);
+      return;
+    }
+    const startUrl = supabase.storage.from(bucket).getPublicUrl(filename);
+    console.log(startUrl.data.publicUrl);
+    setStartImage(startUrl.data.publicUrl);
+  };
+
+  const nextStep = () => {
+    setStep((prev) => prev + 1);
+  };
+
+  const onFinishCamera = async () => {
+    setIsFinishCamera(false);
+    const random = Math.floor(Math.random() * 100000000);
+    const filename = `finishImage-${random}`;
+
+    let image = finishCamera.current.takePhoto();
+
+    const file = dataURIToFile(image, filename);
+    const { error } = await supabase.storage
+      .from(bucket)
+      .upload(filename, file);
+    if (error) {
+      console.error("upload finish image error", error);
+      return;
+    }
+    const finishUrl = supabase.storage.from(bucket).getPublicUrl(filename);
+    setFinishImage(finishUrl.data.publicUrl);
+
+    const { data } = await supabase
+      .from("route")
+      .insert([
+        {
+          route: json,
+          username: "mayrang",
+          start_image: startImage,
+          finish_image: finishUrl.data.publicUrl,
+        },
+      ])
+      .select();
+
+    router.replace(`/detail/${data[0].id}`);
   };
 
   //자동 레코드
@@ -54,16 +114,6 @@ const HomePage = () => {
 
             console.log(position, "position");
             if (before_record !== null) {
-              const dist = getDistance({
-                lat1: before_record.latitude,
-                lon1: before_record.longitude,
-                lat2: new_record.latitude,
-                lon2: new_record.longitude,
-              });
-
-              // if (dist < 0.01) {
-              //   updateFlag = false;
-              // }
             }
             if (updateFlag) {
               setCoords(new_record);
@@ -177,30 +227,15 @@ const HomePage = () => {
             "line-width": 8,
           },
         });
-
+        setJson(json);
         setLineId((prev) => prev + 1);
         setLocationList([]);
-        const { data } = await supabase.from("route").insert([
-          {
-            route: json,
-            username: "mayrang",
-          },
-        ]);
+        setStep(2);
       }
     } catch (err) {
       alert(err.message);
     }
   };
-
-  const locationToString = (coord, idx) => (
-    <div key={idx}>
-      latitude : {coord[0]} & longitude : {coord[1]}
-    </div>
-  );
-
-  const showLocationList = locationList.map((coord, idx) =>
-    locationToString(coord, idx)
-  );
 
   const LoadScript = () => {
     const script = document.createElement("script");
@@ -253,13 +288,6 @@ const HomePage = () => {
             const marker = new window.wemapgl.Marker()
               .setLngLat(currentPosition)
               .addTo(map);
-
-            // map.addTo(currentPositionMarker);
-            console.log(marker, "markder");
-            map.on("click", (e) => {
-              console.log(e.lngLat);
-            });
-            console.log("map", map);
             setMap(map);
             setCurrentMarker(marker);
           };
@@ -311,6 +339,7 @@ const HomePage = () => {
                 src={startImage}
                 alt="Taken photo"
               />
+              <button onClick={nextStep}>다음 스텝</button>
             </>
           )}
         </>
@@ -325,7 +354,33 @@ const HomePage = () => {
           {recording === true && (
             <button onClick={finishAutoRecordButtonListener}>측정종료</button>
           )}
-          {...showLocationList}
+        </>
+      )}
+      {step === 2 && (
+        <>
+          {isFinishCamera ? (
+            <>
+              <Camera ref={finishCamera} facingMode="environment" />
+
+              <button
+                className="z-10 absolute bottom-5 left-1/2 -translate-x-1/2"
+                onClick={onFinishCamera}
+              >
+                Take photo
+              </button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setIsFinishCamera(true)}>사진 찍기</button>
+              <Image
+                className="absolute z-4 w-full overflow-hidden "
+                width={400}
+                height={500}
+                src={finishImage}
+                alt="Taken photo"
+              />
+            </>
+          )}
         </>
       )}
     </>
