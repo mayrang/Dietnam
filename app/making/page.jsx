@@ -1,16 +1,18 @@
 "use client";
-// import { Button } from "antd";
-// import AfterInstallation from "components/AfterInstallation";
-// import OverlayLoadingCustom from "components/Common/OverlayLoadingCustom";
 
 import { useEffect, useState, useRef } from "react";
-import { getCircleCoordinates, getDistance, getFinDist } from "@/utils/calc";
+import {
+  getCircleCoordinates,
+  getDistance,
+  getFinDist,
+} from "../../utils/calc";
 import "./page.module.css";
-import { supabase } from "@/supabase/supabase";
+import { supabase } from "../../supabase/supabase";
 import { Camera } from "react-camera-pro";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { dataURIToFile } from "@/utils/util";
+import { dataURIToFile } from "../../utils/file";
+
 const HomePage = () => {
   const [currentPosition, setCurrentPosition] = useState();
   const mapContainer = useRef(null);

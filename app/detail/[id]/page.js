@@ -1,6 +1,6 @@
 "use client";
 
-import { getDataById } from "@/supabase/supabase";
+import { getDataById } from "../../../supabase/supabase";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
