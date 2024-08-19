@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} relative overflow-x-hidden flex items-center justify-center flex-col`}
       >
-        <nav className="relative border-b-2 border-black border-solid   z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ">
+        <nav className="relative border-b-2 border-black border-solid h-[100svh]  z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ">
           {isHome ? (
             <div className="flex items-center gap-2">
               <Image

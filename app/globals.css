@@ -12,9 +12,9 @@ video {
   z-index: 7 !important;
 }
 
-body {
+/* body {
   height: calc(var(--vh, 1vh) * 100);
-}
+} */
 
 .current-marker {
   background-image: url("/disc.svg");

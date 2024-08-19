@@ -66,7 +66,7 @@ const MakingPage = () => {
   return (
     <>
       <div>
-        <div className="h-[calc(100vh-54px)] relative  w-full">
+        <div className="h-[calc(100svh-54px)] relative  w-full">
           <div
             id="mapContainer"
             ref={mapContainer}
