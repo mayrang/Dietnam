@@ -6,6 +6,7 @@ import {
   useMapStore,
   useRecordingStore,
   useStepStore,
+  useTimeStore,
 } from "../store/making";
 import InputRouteName from "./InputRouteName";
 import Stop from "./icons/Stop";
@@ -19,6 +20,7 @@ export default function Recording() {
   const { setStep } = useStepStore();
   const { currentMarker } = useCurrentMarkerStore();
   const [locationList, setLocationList] = useState([]);
+  const { setFinishTime } = useTimeStore();
 
   useEffect(() => {
     if (recording) {
@@ -166,6 +168,7 @@ export default function Recording() {
         setLineId((prev) => prev + 1);
         setFinishPosition(locationList[locationList.length - 1]);
         setLocationList([]);
+        setFinishTime(Date.now());
         setStep("finishPhoto");
       }
     } catch (err) {

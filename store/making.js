@@ -51,3 +51,11 @@ export const useRecordingStore = create((set) => ({
   recording: false,
   setRecording: (bool) => set(() => ({ recording: bool })),
 }));
+
+export const useTimeStore = create((set) => ({
+  startTime: 0,
+  finishTime: 0,
+  setStartTime: (time) => set(() => ({ startTime: time })),
+  setFinishTime: (time) => set(() => ({ finishTime: time })),
+  resetTime: () => set(() => ({ startTime: 0, finishTime: 0 })),
+}));

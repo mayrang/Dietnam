@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import FinishPlace from "./FinishPlace";
-import { useMakingStore, useStepStore } from "../store/making";
+import { useMakingStore, useStepStore, useTimeStore } from "../store/making";
 import { useEffect } from "react";
 import InputRouteName from "./InputRouteName";
 import { supabase } from "../supabase/supabase";
 import { useRouter } from "next/navigation";
+import { calculateTotalDistance } from "../utils/calc";
 export default function CheckFinishPhoto() {
   const {
     route: { finishImage, routeName },
@@ -13,7 +14,7 @@ export default function CheckFinishPhoto() {
   } = useMakingStore();
   const { setStep } = useStepStore();
   const router = useRouter();
-
+  const { startTime, finishTime } = useTimeStore();
   useEffect(() => {
     if (!finishImage) {
       setStep("finishPhoto");
@@ -24,6 +25,14 @@ export default function CheckFinishPhoto() {
     if (routeName === "") {
       alert("Please input route name");
     }
+    let time = Math.round((finishTime - startTime) / 60000);
+    const coords = route.json.data.features[0].geometry.coordinates;
+    if (!coords) {
+      alert("데이터가 없습니다.");
+      setStep("startPhoto");
+    }
+    const distance = calculateTotalDistance(coords);
+    console.log("time", time, distance);
     const { data } = await supabase
       .from("route")
       .insert([
@@ -40,6 +49,8 @@ export default function CheckFinishPhoto() {
             data: route.finishPosition,
           },
           type: route.type,
+          time: time,
+          distance: distance,
         },
       ])
       .select();

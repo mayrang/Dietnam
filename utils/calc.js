@@ -1,37 +1,3 @@
-export function getDistance({ lat1, lon1, lat2, lon2 }) {
-  if (lat1 === lat2 && lon1 === lon2) {
-    return 0;
-  } else {
-    let radlat1 = (Math.PI * lat1) / 180;
-    let radlat2 = (Math.PI * lat2) / 180;
-    let theta = lon1 - lon2;
-    let radtheta = (Math.PI * theta) / 180;
-    let dist =
-      Math.sin(radlat1) * Math.sin(radlat2) +
-      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    if (dist > 1) {
-      dist = 1;
-    }
-    dist = Math.acos(dist);
-    dist = (dist * 180) / Math.PI;
-    dist = dist * 60 * 1.1515;
-    dist = dist * 1.609344;
-    //KM로 변환
-    return dist;
-  }
-}
-
-export function getFinDist(locationList) {
-  const lastIdx = locationList.length - 1;
-  //마지막이랑 처음이랑 길이차이가 많이나면 안됨.100meter만 허용
-  const finDist = getDistance({
-    lat1: locationList[0].latitude,
-    lon1: locationList[0].longitude,
-    lat2: locationList[lastIdx].latitude,
-    lon2: locationList[lastIdx].longitude,
-  });
-  return finDist;
-}
 export function getCircleCoordinates(lon, lat, radiusM, numPoints = 65) {
   const earthRadius = 6371000; // 지구 반경 (미터 단위)
   const coordinates = [[]];
@@ -69,4 +35,32 @@ function toRadians(degrees) {
 
 function toDegrees(radians) {
   return (radians * 180) / Math.PI;
+}
+
+export function calculateTotalDistance(coords) {
+  const toRadians = (degree) => (degree * Math.PI) / 180;
+  const earthRadiusKm = 6371; // 지구의 반지름(km)
+
+  let totalDistance = 0;
+
+  for (let i = 1; i < coords.length; i++) {
+    const [prevLon, prevLat] = coords[i - 1];
+    const [currLon, currLat] = coords[i];
+
+    const dLat = toRadians(currLat - prevLat);
+    const dLon = toRadians(currLon - prevLon);
+
+    const lat1 = toRadians(prevLat);
+    const lat2 = toRadians(currLat);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadiusKm * c;
+    totalDistance += distance;
+  }
+
+  return totalDistance; // 총 이동거리(km)
 }

@@ -5,6 +5,7 @@ import {
   useMakingStore,
   useRecordingStore,
   useStepStore,
+  useTimeStore,
 } from "../store/making";
 import { useEffect, useState } from "react";
 
@@ -15,6 +16,8 @@ export default function CheckStartPhoto() {
   } = useMakingStore();
   const { setStep } = useStepStore();
   const { setRecording } = useRecordingStore();
+  const { setStartTime } = useTimeStore();
+
   useEffect(() => {
     if (!startImage) {
       setStep("startPhoto");
@@ -28,7 +31,7 @@ export default function CheckStartPhoto() {
 
   const handleStart = () => {
     setStep("recording");
-
+    setStartTime(Date.now());
     setRecording(true);
   };
 
