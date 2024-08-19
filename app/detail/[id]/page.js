@@ -71,7 +71,8 @@ export default function Detail() {
   }, [data]);
   return (
     <div>
-      {data && (
+      {JSON.stringify(data)}
+      {/* {data && (
         <>
           <div>
             <div className="h-[calc(100vh-150px)] w-full">
@@ -101,7 +102,7 @@ export default function Detail() {
             />
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 }

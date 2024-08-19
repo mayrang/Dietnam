@@ -4,12 +4,15 @@ import FinishPlace from "./FinishPlace";
 import { useMakingStore, useStepStore } from "../store/making";
 import { useEffect } from "react";
 import InputRouteName from "./InputRouteName";
+import { supabase } from "../supabase/supabase";
+import { useRouter } from "next/navigation";
 export default function CheckFinishPhoto() {
   const {
     route: { finishImage, routeName },
     route,
   } = useMakingStore();
   const { setStep } = useStepStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (!finishImage) {
@@ -17,10 +20,30 @@ export default function CheckFinishPhoto() {
     }
   }, [finishImage]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (routeName === "") {
       alert("Please input route name");
     }
+    const { data } = await supabase
+      .from("route")
+      .insert([
+        {
+          route: route.json,
+
+          start_image: route.startImage,
+          finish_image: route.finishUrl,
+          route_name: route.routeName,
+          start_position: {
+            data: route.startPosition,
+          },
+          finish_position: {
+            data: route.finishPosition,
+          },
+          type: route.type,
+        },
+      ])
+      .select();
+    router.replace(`/detail/${data[0].id}`);
     console.log(route);
   };
 
