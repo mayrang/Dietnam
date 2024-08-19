@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       >
         <nav className="relative border-b-2 border-black border-solid  z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ">
           {isHome ? (
-            <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src={"/logo.png"}
                 alt="dietnam logo image"
@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
                 height={24}
               />
               <h1 className="font-extrabold text-xl ">Dietnam</h1>
-            </div>
+            </Link>
           ) : (
             <BackButton />
           )}
