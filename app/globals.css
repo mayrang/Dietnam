@@ -29,4 +29,38 @@ video {
   background-size: cover;
   width: 20px;
   height: 20px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.finish-marker {
+  background-image: url("/finish-marker.svg");
+  background-size: cover;
+  width: 20px;
+  padding-bottom: 10px;
+  height: 20px;
+  position: relative;
+}
+
+.start-image,
+.finish-image {
+  background-size: 100px 80px;
+  width: 100px;
+  height: 80px;
+  position: absolute;
+}
+
+.carousel-container {
+  flex: 1 1 0%;
+}
+
+.carousel-item-padding {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 10px; /* 각 아이템 사이의 여백 설정 */
+}
+
+.react-multi-carousel-track {
+  height: 100%;
 }

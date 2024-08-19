@@ -5,7 +5,6 @@ export default function Map() {
       viewBox="0 0 24 24"
       width="26"
       height="26"
-      class="main-grid-item-icon"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"

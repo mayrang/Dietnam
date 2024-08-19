@@ -33,18 +33,6 @@ export default function FinishPhoto() {
     const finishUrl = supabase.storage.from(bucket).getPublicUrl(filename);
     setFinishImage(finishUrl.data.publicUrl);
 
-    // const { data } = await supabase
-    //   .from("route")
-    //   .insert([
-    //     {
-    //       route: json,
-    //       username: "mayrang",
-    //       start_image: startImage,
-    //       finish_image: finishUrl.data.publicUrl,
-    //     },
-    //   ])
-    //   .select();
-
     setStep("checkFinishPhoto");
   };
 

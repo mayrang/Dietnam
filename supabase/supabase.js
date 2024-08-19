@@ -18,3 +18,14 @@ export async function getDataById(id) {
 
   return data;
 }
+
+export async function getAllData() {
+  const { data, error } = await supabase.from("route").select("*");
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+
+  return data;
+}

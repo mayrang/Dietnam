@@ -75,50 +75,6 @@ const MakingPage = () => {
           <BottomArea />
         </div>
       </div>
-      {/* {step === 0 && (
-        <>
-          
-        </>
-      )}
-      {step === 1 && (
-        <>
-          {recording === false && (
-            <>
-              <button onClick={locationAutoButtenListener}>측정시작</button>
-            </>
-          )}
-          {recording === true && (
-            <button onClick={finishAutoRecordButtonListener}>측정종료</button>
-          )}
-        </>
-      )}
-      {step === 2 && (
-        <>
-          {isFinishCamera ? (
-            <>
-              <Camera ref={finishCamera} facingMode="environment" />
-
-              <button
-                className="z-10 absolute bottom-5 left-1/2 -translate-x-1/2"
-                onClick={onFinishCamera}
-              >
-                Take photo
-              </button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => setIsFinishCamera(true)}>사진 찍기</button>
-              <Image
-                className="absolute z-4 w-full overflow-hidden "
-                width={400}
-                height={500}
-                src={finishImage}
-                alt="Taken photo"
-              />
-            </>
-          )}
-        </>
-      )} */}
     </>
   );
 };

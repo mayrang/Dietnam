@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import BackButton from "../components/BackButton";
 import Image from "next/image";
+import RouteName from "../components/RouteName";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +18,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const headersList = headers();
-  const pathname = headersList.get("referer");
+  const pathname = headersList.get("x-next-pathname");
   const isMaking = pathname?.includes("making");
   const isDetail = pathname?.includes("detail");
-  const isHome = !(isMaking || isMaking);
+  const isHome = !(isMaking || isDetail);
+  console.log("isHome", isHome, isDetail, isMaking, pathname);
 
   return (
     <html lang="en">
@@ -48,8 +50,8 @@ export default function RootLayout({ children }) {
           ) : (
             <BackButton />
           )}
-          {isMaking && <div className="font-bold text-xl">making route</div>}
-          {isDetail && <div className="font-bold text-xl">route detail</div>}
+          {isMaking && <div className="font-bold text-xl">Making Route</div>}
+          {isDetail && <RouteName />}
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
@@ -59,7 +61,6 @@ export default function RootLayout({ children }) {
               viewBox="0 0 24 24"
               width="28"
               height="28"
-              class="main-grid-item-icon"
               fill="none"
               stroke="currentColor"
               strokeLinecap="round"

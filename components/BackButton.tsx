@@ -1,18 +1,9 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function BackButton() {
-  const router = useRouter();
-  const handleBackButton = () => {
-    router.push("/");
-  };
   return (
-    <button
-      className="font-bold block pt-1 top-3 text-3xl"
-      onClick={handleBackButton}
-    >
+    <a href={"/"} className="font-bold block pt-1 top-3 text-3xl">
       {"<"}
-    </button>
+    </a>
   );
 }

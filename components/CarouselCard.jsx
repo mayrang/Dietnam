@@ -1,26 +1,10 @@
 "use client";
 
-import { getDataById } from "../../../supabase/supabase";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { useDetailStore } from "../../../store/detail";
-import DetailBottom from "../../../components/DetailBottom";
-import {
-  adjustCoordinatesForDirection,
-  calculateCenterAndZoom,
-} from "../../../utils/calc";
-export default function Detail() {
-  const { id } = useParams();
-  const { data, setData } = useDetailStore();
+import { useEffect, useRef } from "react";
+import { calculateCenterAndZoom } from "../utils/calc";
+import DataCard from "./DataCard";
+export default function CarouselCard({ data }) {
   const mapContainer = useRef(null);
-
-  useEffect(() => {
-    getDataById(id).then((result) => {
-      setData(result[0]);
-      console.log(result[0]);
-    });
-  }, [id, setData]);
 
   const LoadScript = () => {
     const script = document.createElement("script");
@@ -38,7 +22,7 @@ export default function Detail() {
           const { center, zoom } = calculateCenterAndZoom(
             data.route.data.features[0].geometry.coordinates
           );
-          console.log("center", center, zoom);
+
           // 지도를 초기화하는 함수
           const initializeMap = () => {
             const map = new window.wemapgl.WeMap({
@@ -51,11 +35,6 @@ export default function Detail() {
             const adjustmentFactorMarker =
               zoom < 10 ? 0.005 : zoom < 14 ? 0.001 : 0.0002;
 
-            const { horizontalDirection, verticalDirection } =
-              adjustCoordinatesForDirection(
-                data.start_position.data,
-                data.finish_position.data
-              );
             var startEl = document.createElement("div");
             startEl.className = "start-marker";
 
@@ -77,36 +56,6 @@ export default function Detail() {
                 data.finish_position.data[1] + adjustmentFactorMarker,
               ])
               .addTo(map);
-
-            var startImageEl = document.createElement("div");
-            startImageEl.className = "start-image";
-            startImageEl.style.backgroundImage = `url(${
-              data.start_image ?? ""
-            })`;
-
-            var finishImageEl = document.createElement("div");
-            finishImageEl.className = "finish-image";
-            finishImageEl.style.backgroundImage = `url(${
-              data.finish_image ?? ""
-            })`;
-
-            if (horizontalDirection === "right") {
-              startImageEl.style.right = "20px";
-              finishImageEl.style.left = "20px";
-            } else {
-              startImageEl.style.left = "20px";
-              finishImageEl.style.right = "20px";
-            }
-
-            if (verticalDirection === "up") {
-              startImageEl.style.top = "20px";
-              finishImageEl.style.bottom = "20px";
-            } else {
-              startImageEl.style.bottom = "20px";
-              finishImageEl.style.top = "20px";
-            }
-            finishEl.appendChild(finishImageEl);
-            startEl.appendChild(startImageEl);
 
             map.on("load", function () {
               map.addSource(`directions`, data.route);
@@ -130,22 +79,22 @@ export default function Detail() {
           }, 0);
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         console.error("Script loading failed! Handle this error");
       });
   }, [JSON.stringify(data)]);
+
   return (
-    data && (
-      <>
-        <div className="h-[calc(100svh-54px)] w-full">
-          <div
-            id="mapContainer"
-            ref={mapContainer}
-            className="h-full w-full"
-          ></div>
-          <DetailBottom />
-        </div>
-      </>
-    )
+    <div className="w-full gap-3  flex-1 border-2 border-solid border-black p-4 flex flex-col items-center">
+      <div className="flex-1 w-full">
+        <div
+          id="mapContainer"
+          ref={mapContainer}
+          className="h-full w-full"
+        ></div>
+      </div>
+      <DataCard data={data} />
+    </div>
   );
 }

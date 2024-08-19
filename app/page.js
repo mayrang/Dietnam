@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useEffect } from "react";
-
+import CarouselPart from "../components/CarouselPart";
+import HomeBottom from "../components/HomeBottom";
 export default function Home() {
   return (
-    <div>
-      <Link href="/making">route 만들기</Link>
-      <Link href="/list">route 리스트</Link>
+    <div className="h-[calc(100svh-54px)] w-full flex flex-col">
+      <CarouselPart />
+      <HomeBottom />
     </div>
   );
 }
