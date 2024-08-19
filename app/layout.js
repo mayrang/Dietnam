@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${inter.className} relative w-screen overflow-x-hidden flex items-center justify-center flex-col`}
+        className={`${inter.className} relative overflow-x-hidden flex items-center justify-center flex-col`}
       >
         <nav className="relative border-b-2 border-black border-solid   z-9 flex items-center justify-between w-full px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ">
           {isHome ? (
