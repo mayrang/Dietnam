@@ -1,6 +1,8 @@
-import Link from "next/link";
+"use client";
 
-export default function Home() {
+import { useEffect } from "react";
+
+export default function DetailLayout({ children }) {
   useEffect(() => {
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isIOS = /iphone|ipad|ipod/.test(userAgent);
@@ -13,10 +15,5 @@ export default function Home() {
     }
   }, []);
 
-  return (
-    <div>
-      <Link href="/making">route 만들기</Link>
-      <Link href="/list">route 리스트</Link>
-    </div>
-  );
+  return <>{children}</>;
 }
