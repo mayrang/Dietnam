@@ -12,53 +12,33 @@ import { Camera } from "react-camera-pro";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { dataURIToFile } from "../../utils/file";
+import BottomArea from "../../components/BottomArea";
+import { useCurrentMarkerStore, useMapStore } from "../../store/making";
+import useCurrentPosition from "../../hooks/useCurrentPosition";
 
-const HomePage = () => {
-  const [currentPosition, setCurrentPosition] = useState();
+const MakingPage = () => {
+  const { currentMarker, setCurrentMarker } = useCurrentMarkerStore();
+  const { map, setMap } = useMapStore();
+
+  const currentPosition = useCurrentPosition();
   const mapContainer = useRef(null);
-  const [map, setMap] = useState();
+
   const [recording, setRecording] = useState(false);
   const [locationList, setLocationList] = useState([]);
   const [watchId, setWatchId] = useState(-1);
-  const [currentMarker, setCurrentMarker] = useState();
+
   const [coords, setCoords] = useState([]);
   const [lineId, setLineId] = useState(0);
   const [step, setStep] = useState(0);
-  const [startImage, setStartImage] = useState();
-  const [isStartCamera, setIsStartCamera] = useState(false);
+
   const [isFinishCamera, setIsFinishCamera] = useState(false);
   const [finishImage, setFinishImage] = useState();
-  const startCamera = useRef(null);
+
   const finishCamera = useRef(null);
   const [json, setJson] = useState();
   const router = useRouter();
 
   const bucket = "wemap-route-image";
-
-  const onStartCamera = async () => {
-    setIsStartCamera(false);
-    const random = Math.floor(Math.random() * 100000000);
-    const filename = `startImage-${random}`;
-
-    let image = startCamera.current.takePhoto();
-
-    const file = dataURIToFile(image, filename);
-    console.log(startCamera.current);
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .upload(filename, file);
-    if (error) {
-      console.error("upload start image error", error);
-      return;
-    }
-    const startUrl = supabase.storage.from(bucket).getPublicUrl(filename);
-    console.log(startUrl.data.publicUrl);
-    setStartImage(startUrl.data.publicUrl);
-  };
-
-  const nextStep = () => {
-    setStep((prev) => prev + 1);
-  };
 
   const onFinishCamera = async () => {
     setIsFinishCamera(false);
@@ -193,51 +173,6 @@ const HomePage = () => {
       alert("GPS문제, 기록불가");
     }
   };
-  //자동 종료
-  const finishAutoRecordButtonListener = async (e) => {
-    e.preventDefault();
-    try {
-      setRecording(false);
-      if (watchId !== -1) {
-        navigator.geolocation.clearWatch(watchId);
-        setWatchId(-1);
-        const json = {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  coordinates: locationList,
-                  type: "LineString",
-                },
-              },
-            ],
-          },
-        };
-        console.log(locationList);
-
-        await map.addSource(`directions-${lineId}`, json);
-        map.addLayer({
-          id: `router-${lineId}`,
-          type: "line",
-          source: `directions-${lineId}`,
-          paint: {
-            "line-color": "#e74c3c",
-            "line-width": 8,
-          },
-        });
-        setJson(json);
-        setLineId((prev) => prev + 1);
-        setLocationList([]);
-        setStep(2);
-      }
-    } catch (err) {
-      alert(err.message);
-    }
-  };
 
   const LoadScript = () => {
     const script = document.createElement("script");
@@ -250,31 +185,8 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude, accuracy } = position.coords;
-          console.log(
-            `위도: ${latitude}, 경도: ${longitude}, 정확도: ${accuracy}미터`
-          );
-          setCurrentPosition([longitude, latitude]);
-        },
-        (error) => {
-          console.error(`위치 정보를 가져올 수 없습니다: ${error.message}`);
-        },
-        {
-          enableHighAccuracy: true, // 정확도 우선 모드
-          timeout: 10000, // 10초 이내에 응답 없으면 에러 발생
-          maximumAge: 0, // 항상 최신 위치 정보 수집
-        }
-      );
-    }
-  }, []);
-
-  useEffect(() => {
     LoadScript()
       .then(() => {
-        console.log(456, currentPosition);
         if (currentPosition) {
           // 지도를 초기화하는 함수
           const initializeMap = () => {
@@ -286,8 +198,11 @@ const HomePage = () => {
               zoom: 13,
             });
 
-            console.log("check", currentPosition);
-            const marker = new window.wemapgl.Marker()
+            var el = document.createElement("div");
+            el.className = "current-marker";
+
+            // add marker to map
+            const marker = new wemapgl.Marker(el)
               .setLngLat(currentPosition)
               .addTo(map);
             setMap(map);
@@ -310,40 +225,18 @@ const HomePage = () => {
   return (
     <>
       <div>
-        <div className="h-[calc(100vh-150px)] w-full">
+        <div className="h-[calc(100vh-66px)] relative  w-full">
           <div
             id="mapContainer"
             ref={mapContainer}
             className="h-full w-full"
           ></div>
+          <BottomArea />
         </div>
       </div>
-      {step === 0 && (
+      {/* {step === 0 && (
         <>
-          {isStartCamera ? (
-            <>
-              <Camera ref={startCamera} facingMode="environment" />
-
-              <button
-                className="z-10 absolute bottom-5 left-1/2 -translate-x-1/2"
-                onClick={onStartCamera}
-              >
-                Take photo
-              </button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => setIsStartCamera(true)}>사진 찍기</button>
-              <Image
-                className="absolute z-4 w-full overflow-hidden "
-                width={400}
-                height={500}
-                src={startImage}
-                alt="Taken photo"
-              />
-              <button onClick={nextStep}>다음 스텝</button>
-            </>
-          )}
+          
         </>
       )}
       {step === 1 && (
@@ -384,9 +277,9 @@ const HomePage = () => {
             </>
           )}
         </>
-      )}
+      )} */}
     </>
   );
 };
 
-export default HomePage;
+export default MakingPage;

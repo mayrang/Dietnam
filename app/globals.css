@@ -11,3 +11,18 @@ video {
 
   z-index: 7 !important;
 }
+
+.current-marker {
+  background-image: url("/disc.svg");
+  background-size: cover;
+  width: 20px;
+
+  height: 20px;
+}
+
+.start-marker {
+  background-image: url("/start-marker.svg");
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+}
