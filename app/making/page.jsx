@@ -64,7 +64,7 @@ const MakingPage = () => {
   }, [currentPosition]);
 
   return (
-    <ErrorBoundary>
+    <>
       <div>
         <div className="h-[calc(100vh-54px)] relative  w-full">
           <div
@@ -119,7 +119,7 @@ const MakingPage = () => {
           )}
         </>
       )} */}
-    </ErrorBoundary>
+    </>
   );
 };
 
