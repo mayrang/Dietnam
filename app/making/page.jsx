@@ -1,17 +1,9 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import {
-  getCircleCoordinates,
-  getDistance,
-  getFinDist,
-} from "../../utils/calc";
+import ErrorBoundary from "../../components/ErrorBoundary";
 import "./page.module.css";
-import { supabase } from "../../supabase/supabase";
-import { Camera } from "react-camera-pro";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { dataURIToFile } from "../../utils/file";
+
 import BottomArea from "../../components/BottomArea";
 import { useCurrentMarkerStore, useMapStore } from "../../store/making";
 import useCurrentPosition from "../../hooks/useCurrentPosition";
@@ -72,7 +64,7 @@ const MakingPage = () => {
   }, [currentPosition]);
 
   return (
-    <>
+    <ErrorBoundary>
       <div>
         <div className="h-[calc(100vh-54px)] relative  w-full">
           <div
@@ -127,7 +119,7 @@ const MakingPage = () => {
           )}
         </>
       )} */}
-    </>
+    </ErrorBoundary>
   );
 };
 
