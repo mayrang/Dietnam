@@ -67,7 +67,7 @@ const MakingPage = () => {
         }
       })
       .catch(() => {
-        console.error("Script loading failed! Handle this error");
+        console.log("Script loading failed! Handle this error");
       });
   }, [currentPosition]);
 
