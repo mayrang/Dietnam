@@ -72,7 +72,9 @@ export default function RootLayout({ children }) {
             </svg>
           )}
         </nav>
-        <div className=" max-w-md w-full h-full relative ">{children}</div>
+        <div className=" max-w-md w-full flex-1 h-full relative ">
+          {children}
+        </div>
         {/* </Content>
         </Layout> */}
       </body>
