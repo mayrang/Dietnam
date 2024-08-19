@@ -50,7 +50,7 @@ export default function CheckFinishPhoto() {
           },
           type: route.type,
           time: time,
-          distance: distance,
+          distance: distance.toFixed(2),
         },
       ])
       .select();
