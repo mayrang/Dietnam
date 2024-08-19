@@ -40,7 +40,7 @@ export default function CheckFinishPhoto() {
           route: route.json,
 
           start_image: route.startImage,
-          finish_image: route.finishUrl,
+          finish_image: route.finishImage,
           route_name: route.routeName,
           start_position: {
             data: route.startPosition,
