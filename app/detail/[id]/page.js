@@ -10,11 +10,15 @@ import {
   adjustCoordinatesForDirection,
   calculateCenterAndZoom,
 } from "../../../utils/calc";
+import useCurrentPosition from "../../../hooks/useCurrentPosition";
+import { useCurrentMarkerStore, useMapStore } from "../../../store/making";
 export default function Detail() {
   const { id } = useParams();
   const { data, setData } = useDetailStore();
   const mapContainer = useRef(null);
-
+  const currentPosition = useCurrentPosition();
+  const { setCurrentMarker } = useCurrentMarkerStore();
+  const { map, setMap } = useMapStore();
   useEffect(() => {
     getDataById(id).then((result) => {
       setData(result[0]);
@@ -34,7 +38,7 @@ export default function Detail() {
   useEffect(() => {
     LoadScript()
       .then(() => {
-        if (data) {
+        if (data && currentPosition) {
           const { center, zoom } = calculateCenterAndZoom(
             data.route.data.features[0].geometry.coordinates
           );
@@ -50,6 +54,16 @@ export default function Detail() {
             });
             const adjustmentFactorMarker =
               zoom < 10 ? 0.005 : zoom < 14 ? 0.001 : 0.0002;
+
+            var el = document.createElement("div");
+            el.className = "current-marker";
+
+            // add marker to map
+            const marker = new wemapgl.Marker(el)
+              .setLngLat(currentPosition)
+              .addTo(map);
+            setMap(map);
+            setCurrentMarker(marker);
 
             const { horizontalDirection, verticalDirection } =
               adjustCoordinatesForDirection(
@@ -133,7 +147,7 @@ export default function Detail() {
       .catch(() => {
         console.error("Script loading failed! Handle this error");
       });
-  }, [JSON.stringify(data)]);
+  }, [JSON.stringify(data), currentPosition]);
   return (
     data && (
       <>

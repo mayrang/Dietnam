@@ -5,7 +5,6 @@ export default function BackIcon() {
       viewBox="0 0 24 24"
       width="28"
       height="28"
-      class="main-grid-item-icon"
       fill="none"
       stroke="currentColor"
       strokeLinecap="round"
