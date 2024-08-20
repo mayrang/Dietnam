@@ -28,16 +28,18 @@ export default function CarouselPart() {
     <div className="w-full flex-1 py-5 flex flex-col ">
       {dataList?.length > 0 ? (
         <Carousel
-          partialVisbile
+          partialVisible
           responsive={responsive}
-          swipeable={true}
+          swipeable={false}
           containerClass="carousel-container"
           itemClass="carousel-item-padding"
           draggable={true}
           showDots={false}
           additionalTransfrom={20}
+          customRightArrow={<CustomRightArrow />}
           infinite={true}
-          arrows={false}
+          arrows
+          customLeftArrow={<CustomLeftArrow />}
           transitionDuration={500}
           slidesToSlide={1}
         >
@@ -53,3 +55,59 @@ export default function CarouselPart() {
     </div>
   );
 }
+
+const CustomLeftArrow = ({ onClick, ...rest }) => {
+  const {
+    onMove,
+    carouselState: { currentSlide, deviceType },
+  } = rest;
+  // onMove means if dragging or swiping in progress.
+  return (
+    <button
+      className="outline-none transition flex items-center justify-center left-[calc(4%+1px)] z-[1000] border-none bg-black opacity-30 min-w-[43px] min-h-[43px] cursor-pointer absolute rounded-[35px]"
+      onClick={() => onClick()}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="32"
+        height="32"
+        stroke={"#ffffff"}
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      >
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+  );
+};
+
+const CustomRightArrow = ({ onClick, ...rest }) => {
+  const {
+    onMove,
+    carouselState: { currentSlide, deviceType },
+  } = rest;
+  // onMove means if dragging or swiping in progress.
+  return (
+    <button
+      className="outline-none transition flex items-center justify-center right-[calc(4%+1px)] z-[1000] border-none bg-black opacity-30 min-w-[43px] min-h-[43px] cursor-pointer absolute rounded-[35px]"
+      onClick={() => onClick()}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="32"
+        height="32"
+        fill="none"
+        stroke="#ffffff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  );
+};
