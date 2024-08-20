@@ -86,7 +86,10 @@ export default function CarouselCard({ data }) {
   }, [JSON.stringify(data)]);
 
   return (
-    <div className="w-full gap-3  flex-1 border-2 border-solid border-black p-4 flex flex-col items-center">
+    <a
+      href={`/detail/${data.id}`}
+      className="w-full gap-3  flex-1 border-2 border-solid border-black p-4 flex flex-col items-center"
+    >
       <div className="flex-1 w-full">
         <div
           id="mapContainer"
@@ -95,6 +98,6 @@ export default function CarouselCard({ data }) {
         ></div>
       </div>
       <DataCard data={data} />
-    </div>
+    </a>
   );
 }
