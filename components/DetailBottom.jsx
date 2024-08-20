@@ -25,6 +25,7 @@ export default function DetailBottom() {
       }
 
       try {
+        let prev_id = null;
         let before_record = null;
         const newId = navigator.geolocation.watchPosition(
           async (position) => {
@@ -51,8 +52,8 @@ export default function DetailBottom() {
                   position.coords.latitude,
                 ]);
 
-                if (circleId) {
-                  map.removeLayer(`currentCircle-${circleId}`);
+                if (prev_id) {
+                  map.removeLayer(`currentCircle-${prev_id}`);
                 }
 
                 const randomId = Math.floor(Math.random() * 100000000);
@@ -90,6 +91,7 @@ export default function DetailBottom() {
                   },
                 });
                 setCircleId(randomId);
+                prev_id = randomId;
               }
             }
           },
