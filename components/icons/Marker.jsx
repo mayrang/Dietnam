@@ -2,18 +2,12 @@ export default function Marker({ color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width="28"
-      height="28"
-      className={color === "green" ? "stroke-green-500" : "stroke-blue-500"}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
+      className={`${color === "green" ? "fill-[#00D300]" : "fill-[#007AFF]"}`}
+      height="36"
+      width="27"
+      viewBox="0 0 384 512"
     >
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
+      <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
     </svg>
   );
 }

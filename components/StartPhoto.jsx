@@ -6,6 +6,7 @@ import { dataURIToFile } from "../utils/file";
 import { supabase } from "../supabase/supabase";
 import { useMakingStore, useMapStore, useStepStore } from "../store/making";
 import useCurrentPosition from "../hooks/useCurrentPosition";
+import CameraIcon from "./icons/CameraIcon";
 
 export default function StartPhoto() {
   const startCamera = useRef(null);
@@ -89,20 +90,7 @@ export default function StartPhoto() {
           onClick={() => setIsStartCamera(true)}
           className=" border-2   cursor-pointer w-full h-20 border-solid border-black flex justify-center items-center"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-          >
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" />
-          </svg>
+          <CameraIcon />
         </button>
       </div>
     </div>

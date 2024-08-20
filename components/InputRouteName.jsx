@@ -26,7 +26,7 @@ export default function InputRouteName() {
         />
       ) : (
         <div className="w-full py-2 px-2 flex-1 border-solid border-2 border-black">
-          {routeName === "" ? "please input route name.." : routeName}
+          {routeName === "" ? "input route name" : routeName}
         </div>
       )}
       <button onClick={() => setIsInput((prev) => !prev)}>

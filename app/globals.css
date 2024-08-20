@@ -27,7 +27,7 @@ video {
 .start-marker {
   background-image: url("/start-marker.svg");
   background-size: cover;
-  width: 20px;
+  width: 15px;
   height: 20px;
   padding-bottom: 10px;
   position: relative;
@@ -36,7 +36,7 @@ video {
 .finish-marker {
   background-image: url("/finish-marker.svg");
   background-size: cover;
-  width: 20px;
+  width: 15px;
   padding-bottom: 10px;
   height: 20px;
   position: relative;
