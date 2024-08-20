@@ -16,15 +16,17 @@ const responsive = {
 
 export default function CarouselPart() {
   const [dataList, setDataList] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getAllData().then((res) => {
       setDataList(res);
+      setLoading(false);
     });
   }, []);
   console.log(dataList);
   return (
-    <div className="w-full flex-1 py-5 flex flex-col">
-      {dataList?.length > 0 && (
+    <div className="w-full flex-1 py-5 flex flex-col ">
+      {dataList?.length > 0 ? (
         <Carousel
           partialVisbile
           responsive={responsive}
@@ -43,6 +45,10 @@ export default function CarouselPart() {
             <CarouselCard key={data.id} data={data} />
           ))}
         </Carousel>
+      ) : (
+        <div className="flex w-full h-full items-center justify-center">
+          {loading ? "Loading..." : "There is no route data yet."}
+        </div>
       )}
     </div>
   );
