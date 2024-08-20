@@ -30,7 +30,7 @@ export default function CarouselPart() {
         <Carousel
           partialVisible
           responsive={responsive}
-          swipeable={false}
+          swipeable={true}
           containerClass="carousel-container"
           itemClass="carousel-item-padding"
           draggable={true}
