@@ -53,7 +53,15 @@ export default function CheckStartPhoto() {
       <div className="flex w-full  items-center gap-2">
         <div className="size-8 " />
         <div className="rounded-lg w-full border-2 p-4 border-solid border-black ">
-          <div className="mb-4">Type</div>
+          <div className=" flex items-center gap-1 mb-3 ">
+            <Image
+              src={"/running.png"}
+              width={26}
+              height={26}
+              alt="running icon"
+            />
+            <div className="font-bold text-lg ">Type</div>
+          </div>
           <div className="flex items-center gap-4">
             <label htmlFor="walking">
               <input

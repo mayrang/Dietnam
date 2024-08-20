@@ -6,6 +6,7 @@ import StartPlace from "./StartPlace";
 import Clock from "./icons/Clock";
 import { useCurrentMarkerStore, useMapStore } from "../store/making";
 import { getCircleCoordinates } from "../utils/calc";
+import Image from "next/image";
 
 export default function DetailBottom() {
   const { data } = useDetailStore();
@@ -163,6 +164,12 @@ export default function DetailBottom() {
   };
   return (
     <div className="absolute p-6 bottom-0 w-5/6 mx-auto left-0  bg-white z-20 right-0 rounded-t-md  border-solid border-black  border-t-2 border-x-2 ">
+      <div className=" flex items-center gap-1 mb-2 -mt-3">
+        <Image src={"/running.png"} width={32} height={32} alt="running icon" />
+        <div className="font-bold text-xl">
+          {data?.type === "running" ? "Running" : "Walking"}
+        </div>
+      </div>
       <StartPlace />
       <div className="flex items-center">
         <div className="flex flex-col gap-[2px] items-center w-[26.5px]">

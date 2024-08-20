@@ -82,7 +82,7 @@ export function calculateCenterAndZoom(coords) {
     if (lon > maxLon) maxLon = lon;
   });
 
-  const center = [(minLon + maxLon) / 2, (minLat + maxLat) / 2];
+  const center = [(minLon + maxLon) / 2, (minLat + maxLat) / 2 - 0.01];
 
   // 단순 줌 레벨 계산 (이건 매우 단순화된 예시)
   const latRange = maxLat - minLat;
