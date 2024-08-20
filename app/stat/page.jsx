@@ -185,10 +185,10 @@ export default function StatPage() {
         <Piechart data={data02} type="Km" number="1.8km" />
         <Piechart data={data03} type="Time" number="1.0h" />
       </div>
-      <div className="w-full h-44 mt-6">
+      <div className="w-full h-[166px] mt-6">
         <Linechart data={lineData} />
       </div>
-      <div className="w-full h-44 mt-6">
+      <div className="w-full h-[166px] mt-6">
         <Barchart data={barData} />
       </div>
     </div>
