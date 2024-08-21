@@ -18,7 +18,8 @@ export default function DataCard({ data }) {
 
   return (
     <div className="flex flex-col w-full gap-1">
-      <h4 className="font-bold text-2xl">{data?.route_name}</h4>
+      <h4 className="font-semibold text-2xl">{data?.route_name}</h4>
+      <div className="font-mono text-base text-gray-400">Near by {distance.toFixed(2)}km</div>
       <div className=" flex items-center gap-1">
         {data?.type === "running" ? (
           <Image
@@ -34,12 +35,11 @@ export default function DataCard({ data }) {
       </div>
       <div className=" flex items-center gap-1">
         <Clock />
-        <div>
-          {data?.time ?? 0}m {" / "}
+        <div>    
+          &nbsp;{data?.time ?? 0}m {" / "}
           {data?.distance?.toFixed(2) ?? 0}km
         </div>
       </div>
-      <div>Near by {distance.toFixed(2)}km</div>
     </div>
   );
 }

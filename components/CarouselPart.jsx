@@ -25,7 +25,7 @@ export default function CarouselPart() {
   }, []);
   console.log(dataList);
   return (
-    <div className="w-full flex-1 flex flex-col ">
+    <div className="w-full flex-1 flex flex-col mb-2">
       {dataList?.length > 0 ? (
         <Carousel
           partialVisible

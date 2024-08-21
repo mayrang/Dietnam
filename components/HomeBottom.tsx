@@ -8,7 +8,7 @@ export default function HomeBottom() {
       <Link href={"/stat"}>
         <Chart />
       </Link>
-      <Link className="w-[48px]" href={"/"}>
+      <Link className="w-[48px] pl-3.5" href={"/"}>
         <Home />
       </Link>
       <a className="w-[48px]" href={"/making"}>

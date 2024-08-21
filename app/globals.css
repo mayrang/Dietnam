@@ -69,6 +69,7 @@ video {
   display: flex;
   flex-direction: column;
   height: 100%;
+
   padding: 0 10px; /* 각 아이템 사이의 여백 설정 */
 }
 

@@ -89,15 +89,15 @@ export default function CarouselCard({ data }) {
   return (
     <a
       href={`/detail/${data.id}`}
-      className="w-full gap-3 rounded-lg  flex-1 border-2 border-solid border-gray-200 shadow-sm p-4 flex flex-col items-center"
+      className="w-full gap-3 rounded-lg mb-2  flex-1 border-2 border-solid border-gray-200 shadow-md p-4 flex flex-col items-center"
     >
-      <div className="flex-1 w-full shadow-xl">
+      <div className="flex-1 w-full shadow-md">
         <div
           id="mapContainer"
           ref={mapContainer}
           className="h-full w-full"
         ></div>
-      </div>
+      </div>    
       <DataCard data={data} />
     </a>
   );

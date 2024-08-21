@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
           ])}
         >
           {isHome ? (
-            <Link href="/" className="pl-3.5 flex items-center gap-1 pt-5">
+            <Link href="/" className="pl-3.5 flex items-center gap-1">
               <Image
                 src={"/no-bg-logo.png"}
                 alt="dietnam logo image"
@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
-            <Link href="/info" className="pt-8" >
+            <Link href="/info" className="pt-5 pr-6" >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
