@@ -6,6 +6,8 @@ import BackButton from "../components/BackButton";
 import Image from "next/image";
 import RouteName from "../components/RouteName";
 import cls from "classnames";
+import Info from "../components/icons/Info";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -60,23 +62,9 @@ export default function RootLayout({ children }) {
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
-            <Link href="/info" className="pt-5 pr-6" >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="32"
-                height="32"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1="12" x2="12.01" y1="17" y2="17" />
-              </svg>
-            </Link>
+            <a href="/info" className="pt-5 pr-6">
+              <Info />
+            </a>
           )}
         </nav>
         <div className=" max-w-md w-screen flex-1 h-full relative ">

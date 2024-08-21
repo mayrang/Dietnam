@@ -5,12 +5,12 @@ import Plus from "./icons/Plus";
 export default function HomeBottom() {
   return (
     <div className="w-full  flex items-center justify-between pb-3  px-8">
-      <Link href={"/stat"}>
+      <a href={"/stat"}>
         <Chart />
-      </Link>
-      <Link className=" " href={"/"}>
+      </a>
+      <a className=" " href={"/"}>
         <Home />
-      </Link>
+      </a>
       <a className="" href={"/making"}>
         <Plus />
       </a>
