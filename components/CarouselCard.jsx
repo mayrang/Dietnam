@@ -30,6 +30,7 @@ export default function CarouselCard({ data }) {
               key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
               style: "bright",
               center: center,
+              urlController: false,
               zoom: zoom,
             });
             const adjustmentFactorMarker =
