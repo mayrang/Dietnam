@@ -1,19 +1,12 @@
 export default function Chart() {
   return (
     <svg
+      width={32}
+      height={32}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width="28"
-      height="28"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="3"
+      viewBox="0 0 448 512"
     >
-      <line x1="12" x2="12" y1="20" y2="10" />
-      <line x1="18" x2="18" y1="20" y2="4" />
-      <line x1="6" x2="6" y1="20" y2="16" />
+      <path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z" />
     </svg>
   );
 }
