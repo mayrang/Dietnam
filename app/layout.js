@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
-            <a href="/info" className="pt-5 pr-6">
+            <a href="/info" className="pt-3 pr-6">
               <Info />
             </a>
           )}
