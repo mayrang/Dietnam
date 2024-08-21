@@ -6,7 +6,7 @@ export default function Plus() {
       width="32"
       height="32"
       fill="none"
-      stroke="currentColor"
+      stroke="#000000"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
