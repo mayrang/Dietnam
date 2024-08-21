@@ -74,7 +74,7 @@ export default function FinishPhoto() {
         <div className="size-8 " />
         <button
           onClick={() => setIsFinishCamera(true)}
-          className=" border-2   cursor-pointer w-full h-20 border-solid border-black flex justify-center items-center"
+          className=" border-2   cursor-pointer w-full h-20 rounded-md border-solid border-gray-300 flex justify-center items-center shadow"
         >
           <CameraIcon />
         </button>

@@ -40,7 +40,7 @@ export default function CheckStartPhoto() {
       <StartPlace />
       <div className="flex w-full  items-center gap-2">
         <div className="size-8 " />
-        <div className=" border-2   cursor-pointer w-full h-[250px] border-solid border-black flex justify-center items-center">
+        <div className=" border-2   cursor-pointer w-full h-[250px] border-solid  rounded-md border-gray-300 shadow flex justify-center items-center overflow-hidden">
           <Image
             src={startImage}
             className="w-full h-full object-cover"
@@ -52,8 +52,8 @@ export default function CheckStartPhoto() {
       </div>
       <div className="flex w-full  items-center gap-2">
         <div className="size-8 " />
-        <div className="rounded-lg w-full border-2 p-4 border-solid border-black ">
-          <div className=" flex items-center gap-1 mb-3 ">
+        <div className="rounded-lg w-full  p-4 border-solid border-2 border-gray-300 shadow ">
+          <div className=" flex items-center gap-1 mb-2 ">
             <Image
               src={"/running.png"}
               width={26}
@@ -77,6 +77,7 @@ export default function CheckStartPhoto() {
             <label htmlFor="running">
               <input
                 type="radio"
+                checked={type === "running"}
                 className="mr-1.5"
                 id="running"
                 onChange={handleOptionChange}
@@ -90,7 +91,8 @@ export default function CheckStartPhoto() {
       </div>
       <button
         onClick={handleStart}
-        className="px-7 font-bold cursor-pointer py-2 border-2 border-solid border-black "
+        checked={type === "walking"}
+        className="px-7 rounded-md font-bold cursor-pointer py-2 border-2 border-solid border-black "
       >
         Start
       </button>

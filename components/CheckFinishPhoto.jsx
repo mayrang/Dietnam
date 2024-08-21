@@ -64,7 +64,7 @@ export default function CheckFinishPhoto() {
       <FinishPlace />
       <div className="flex w-full  items-center gap-2">
         <div className="size-8 " />
-        <div className=" border-2   cursor-pointer w-full h-[250px] border-solid border-black flex justify-center items-center">
+        <div className=" border-2   cursor-pointer w-full h-[250px] border-solid  rounded-md border-gray-300 shadow flex justify-center items-center overflow-hidden">
           <Image
             src={finishImage}
             className="w-full h-full object-cover"
@@ -77,7 +77,7 @@ export default function CheckFinishPhoto() {
 
       <button
         onClick={handleSave}
-        className="px-7 font-bold cursor-pointer py-2 border-2 border-solid border-black "
+        className="px-7 rounded-md font-bold cursor-pointer py-2 border-2 border-solid border-black "
       >
         Save
       </button>
