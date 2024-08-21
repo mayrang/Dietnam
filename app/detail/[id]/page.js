@@ -50,6 +50,7 @@ export default function Detail() {
               key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
               style: "bright",
               center: center,
+              urlController: false,
               zoom: zoom,
             });
             const adjustmentFactorMarker =
