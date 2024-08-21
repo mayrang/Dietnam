@@ -190,7 +190,7 @@ export default function DetailBottom() {
         <div className="flex-1 pl-2 flex items-center gap-1">
           <Clock />
           <div>
-            {data.time ?? 0}분 {" / "}
+            {data.time ?? 0}m {" / "}
             {data.distance ?? 0}km
           </div>
         </div>

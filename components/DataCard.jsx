@@ -35,7 +35,7 @@ export default function DataCard({ data }) {
       <div className=" flex items-center gap-1">
         <Clock />
         <div>
-          {data?.time ?? 0}분 {" / "}
+          {data?.time ?? 0}m {" / "}
           {data?.distance?.toFixed(2) ?? 0}km
         </div>
       </div>

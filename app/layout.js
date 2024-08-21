@@ -5,7 +5,7 @@ import Link from "next/link";
 import BackButton from "../components/BackButton";
 import Image from "next/image";
 import RouteName from "../components/RouteName";
-
+import cls from "classnames";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -35,17 +35,22 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} relative h-[100svh]  overflow-x-hidden flex items-center justify-center flex-col`}
       >
-        <nav className="relative border-b-2 border-black border-solid  z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ">
+        <nav
+          className={cls([
+            "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ",
+            { "border-b-2 border-solid": !isHome },
+          ])}
+        >
           {isHome ? (
             <Link href="/" className="flex items-center gap-2">
               <Image
-                src={"/logo.png"}
+                src={"/no-bg-logo.png"}
                 alt="dietnam logo image"
                 className="rounded-md overflow-hidden"
-                width={24}
-                height={24}
+                width={40}
+                height={40}
               />
-              <h1 className="font-extrabold text-xl ">Dietnam</h1>
+              <h1 className="font-extrabold text-2xl pt-1.5 ">Dietnam</h1>
             </Link>
           ) : (
             <BackButton />
@@ -55,22 +60,24 @@ export default function RootLayout({ children }) {
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
-            <svg
-              className="pt-1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="28"
-              height="28"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-              <line x1="12" x2="12.01" y1="17" y2="17" />
-            </svg>
+            <Link href="/info">
+              <svg
+                className="pt-1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="32"
+                height="32"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" x2="12.01" y1="17" y2="17" />
+              </svg>
+            </Link>
           )}
         </nav>
         <div className=" max-w-md w-screen flex-1 h-full relative ">
