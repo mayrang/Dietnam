@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
       >
         <nav
           className={cls([
-            "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md pt-3   top-0 left-0 right-0 bg-white ",
+            "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md pt-2   top-0 left-0 right-0 bg-white ",
             { "border-b-2 border-solid": !isHome },
           ])}
         >
