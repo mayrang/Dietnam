@@ -37,20 +37,20 @@ export default function RootLayout({ children }) {
       >
         <nav
           className={cls([
-            "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md py-3   top-0 left-0 right-0 bg-white ",
+            "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md pt-3   top-0 left-0 right-0 bg-white ",
             { "border-b-2 border-solid": !isHome },
           ])}
         >
           {isHome ? (
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="pl-3.5 flex items-center gap-1 pt-5">
               <Image
                 src={"/no-bg-logo.png"}
                 alt="dietnam logo image"
                 className="rounded-md overflow-hidden"
-                width={40}
-                height={40}
+                width={80}
+                height={80}
               />
-              <h1 className="font-extrabold text-2xl pt-1.5 ">Dietnam</h1>
+              <h1 className="font-extrabold text-3xl pt-3 ">Dietnam</h1>
             </Link>
           ) : (
             <BackButton />
@@ -60,9 +60,8 @@ export default function RootLayout({ children }) {
 
           {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
           {isHome && (
-            <Link href="/info">
+            <Link href="/info" className="pt-8" >
               <svg
-                className="pt-1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 width="32"

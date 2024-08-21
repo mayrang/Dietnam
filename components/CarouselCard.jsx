@@ -30,6 +30,7 @@ export default function CarouselCard({ data }) {
               key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
               style: "bright",
               center: center,
+              urlController: false,
               zoom: zoom,
             });
             const adjustmentFactorMarker =
@@ -88,7 +89,7 @@ export default function CarouselCard({ data }) {
   return (
     <a
       href={`/detail/${data.id}`}
-      className="w-full gap-3 rounded-lg  flex-1 border-2 border-solid border-black p-4 flex flex-col items-center"
+      className="w-full gap-3 rounded-lg  flex-1 border-2 border-solid border-gray-200 shadow-sm p-4 flex flex-col items-center"
     >
       <div className="flex-1 w-full shadow-xl">
         <div
