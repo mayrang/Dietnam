@@ -5,10 +5,7 @@ import Plus from "./icons/Plus";
 export default function HomeBottom() {
   return (
     <div className="w-full  flex items-center justify-between pb-5 px-8">
-      <Link
-        href={"/stat"}
-        className="py-1 px-2  border-2 border-solid border-black rounded-md"
-      >
+      <Link href={"/stat"}>
         <Chart />
       </Link>
       <Link className="w-[48px]" href={"/"}>
