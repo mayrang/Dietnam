@@ -91,7 +91,7 @@ export default function CarouselCard({ data }) {
       href={`/detail/${data.id}`}
       className="w-full gap-3 rounded-lg mb-2  flex-1 border-2 border-solid border-gray-200 shadow-md p-4 flex flex-col items-center"
     >
-      <div className="flex-1 w-full shadow-md">
+      <div className="flex-1 w-full rounded-3xl overflow-hidden shadow-lg">
         <div
           id="mapContainer"
           ref={mapContainer}
