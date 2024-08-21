@@ -10,19 +10,28 @@ import {
 import { useEffect, useState } from "react";
 
 export default function CheckStartPhoto() {
-  const { setType, type } = useMakingStore();
+  const {
+    setType,
+
+    route: { startPosition, type },
+  } = useMakingStore();
   const {
     route: { startImage },
   } = useMakingStore();
-  const { setStep } = useStepStore();
+  const { setStep, step } = useStepStore();
   const { setRecording } = useRecordingStore();
   const { setStartTime } = useTimeStore();
 
   useEffect(() => {
-    if (!startImage) {
+    if (!startImage && step === "checkStartPhoto") {
       setStep("startPhoto");
     }
-  }, [startImage]);
+
+    if (!startPosition && step === "checkStartPhoto") {
+      alert("There is no data for the starting position.");
+      setStep("startPhoto");
+    }
+  }, [startImage, startPosition, step, setStep]);
 
   const handleOptionChange = (event) => {
     console.log(event.currentTarget.value);
@@ -68,6 +77,7 @@ export default function CheckStartPhoto() {
                 type="radio"
                 className="mr-1.5"
                 id="walking"
+                checked={type === "walking"}
                 onChange={handleOptionChange}
                 name="type"
                 value="walking"
@@ -91,7 +101,6 @@ export default function CheckStartPhoto() {
       </div>
       <button
         onClick={handleStart}
-        checked={type === "walking"}
         className="px-7 rounded-md font-bold cursor-pointer py-2 border-2 border-solid border-black "
       >
         Start

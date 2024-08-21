@@ -51,7 +51,7 @@ export default function StartPhoto() {
       });
       setStartPosition(currentPosition);
     }
-  }, [map, currentPosition]);
+  }, [map, currentPosition, setStartPosition]);
   return isStartCamera ? (
     <div className="fixed top-0 left-0 right-0 bottom-0">
       <Camera ref={startCamera} facingMode="environment" />
