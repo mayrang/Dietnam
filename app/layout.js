@@ -23,7 +23,8 @@ export default function RootLayout({ children }) {
   const pathname = headersList.get("x-next-pathname");
   const isMaking = pathname?.includes("making");
   const isDetail = pathname?.includes("detail");
-  const isHome = !(isMaking || isDetail);
+  const isStat = pathname?.includes("stat");
+  const isHome = !(isMaking || isDetail || isStat);
   console.log("isHome", isHome, isDetail, isMaking, pathname);
 
   return (
@@ -58,9 +59,10 @@ export default function RootLayout({ children }) {
             <BackButton />
           )}
           {isMaking && <div className="font-bold text-xl">Making Route</div>}
+          {isStat && <div className="font-bold text-xl">Stat</div>}
           {isDetail && <RouteName />}
 
-          {(isMaking || isDetail) && <div className="w-8 h-8"></div>}
+          {(isMaking || isDetail || isStat) && <div className="w-8 h-8"></div>}
           {isHome && (
             <a href="/info" className="pt-3 pr-6">
               <Info />
