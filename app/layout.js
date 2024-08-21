@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         <nav
           className={cls([
             "relative   z-9 flex items-center justify-between w-screen px-2  max-w-md pt-2   top-0 left-0 right-0 bg-white ",
-            { "border-b-2 border-solid": !isHome },
+            { "border-solid border-gray-50 border-b-2  pb-2": !isHome },
           ])}
         >
           {isHome ? (
@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
             </a>
           )}
         </nav>
-        <div className=" max-w-md w-screen flex-1 h-full relative ">
+        <div className="max-w-md w-screen flex-1 h-full relative rounded-xl overflow-hidden shadow-2xl">
           {children}
         </div>
         {/* </Content>
