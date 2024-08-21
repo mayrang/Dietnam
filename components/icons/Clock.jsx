@@ -6,7 +6,7 @@ export default function Clock() {
       width="24"
       height="24"
       fill="none"
-      stroke="currentColor"
+      stroke="#000000"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

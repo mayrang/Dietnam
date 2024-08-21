@@ -4,7 +4,7 @@ import Home from "./icons/Home";
 import Plus from "./icons/Plus";
 export default function HomeBottom() {
   return (
-    <div className="w-full  flex items-center justify-between  px-8">
+    <div className="w-full  flex items-center justify-between pb-3  px-8">
       <Link href={"/stat"}>
         <Chart />
       </Link>
