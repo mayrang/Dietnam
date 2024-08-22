@@ -174,10 +174,11 @@ const barData = [
 import Piechart from "../../components/Piechart";
 import Linechart from "../../components/Linechart";
 import Barchart from "../../components/Barchart";
+import Image from "next/image";
 
 export default function StatPage() {
   return (
-    <div className="flex flex-col  gap-2 p-4">
+    <div className="h-full min-h-[calc(100svh-52px)] overflow-auto gap-2 p-4">
       <h2 className=" font-bold text-2xl ml-4">{"Daily"}</h2>
       <div className="flex items-center w-full h-28 justify-between mt-2">
         <Piechart data={data01} type="Step" number="1638" />
@@ -191,6 +192,23 @@ export default function StatPage() {
       <h2 className="mt-6 font-bold text-2xl ml-4">{"Monthly"}</h2>
       <div className="w-full h-40 mt-6">
         <Barchart data={barData} />
+      </div> 
+      <div className="relative h-[250px] ">
+      <Image
+            src={"/no-bg-logo.png"}
+            alt="dietnam logo"
+            width={250}
+            height={250}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+          />
+          <div className="absolute top-1/2 left-1/2 z-5  size-[250px]  bg-white opacity-70 -translate-x-1/2 -translate-y-1/2" />
+          <Image
+            src={"/dietnam-font.png"}
+            alt="dietnam logo"
+            width={300}
+            height={300}
+            className="absolute top-1/2 z-10 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          />
       </div>
     </div>
   );
