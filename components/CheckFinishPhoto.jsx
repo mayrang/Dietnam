@@ -24,12 +24,14 @@ export default function CheckFinishPhoto() {
   const handleSave = async () => {
     if (routeName === "") {
       alert("Please input route name");
+      return
     }
     let time = Math.round((finishTime - startTime) / 60000);
     const coords = route.json.data.features[0].geometry.coordinates;
     if (!coords) {
       alert("데이터가 없습니다.");
       setStep("startPhoto");
+      return
     }
     const distance = calculateTotalDistance(coords);
     console.log("time", time, distance);
@@ -55,7 +57,7 @@ export default function CheckFinishPhoto() {
       ])
       .select();
     if (typeof window !== "undefined") {
-      window.location.href = "/about";
+      window.location.href = `/detail/${data[0]?.id}`;
     }
     console.log(route);
   };

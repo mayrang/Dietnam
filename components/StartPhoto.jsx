@@ -63,9 +63,9 @@ export default function StartPhoto() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          width="36"
-          height="36"
-          fill="none"
+          width="50"
+          height="50"
+          fill="white"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -85,10 +85,9 @@ export default function StartPhoto() {
     <div className="flex flex-col gap-4 items-center">
       <StartPlace />
       <div className="flex w-full  items-center gap-2">
-        <div className="size-8 " />
         <button
           onClick={() => setIsStartCamera(true)}
-          className=" border-2   cursor-pointer w-full h-20 rounded-md border-solid border-gray-300 flex justify-center items-center shadow"
+          className=" border-2   cursor-pointer w-full h-24 rounded-md border-solid border-gray-300 flex justify-center items-center shadow"
         >
           <CameraIcon />
         </button>

@@ -179,7 +179,7 @@ export default function Recording() {
   return (
     <div className="flex flex-col gap-4 items-center">
       <InputRouteName />
-      <button onClick={finishAutoRecordButtonListener} className="">
+      <button onClick={finishAutoRecordButtonListener} className="mt-4">
         <Stop />
       </button>
     </div>

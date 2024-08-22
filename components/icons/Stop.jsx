@@ -3,8 +3,8 @@ export default function Stop() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      width="32"
-      height="32"
+      width="45"
+      height="45"
       fill="none"
       stroke="#5f5d5d"
       strokeLinecap="round"

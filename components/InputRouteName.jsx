@@ -20,12 +20,12 @@ export default function InputRouteName() {
       <Map />
       {isInput ? (
         <input
-          className="text-xs italic w-full px-2 py-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg"
+          className="text-lg w-full px-2 py-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg"
           value={routeName}
           onChange={handleChange}
         />
       ) : (
-        <div className="text-gray-500 text-xs italic w-full py-2 px-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg ">
+        <div className="text-gray-500 text-lg italic w-full py-2 px-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg ">
           {routeName === "" ? "Enter your Route Name" : routeName}
         </div>
       )}
