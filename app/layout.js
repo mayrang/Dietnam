@@ -24,7 +24,8 @@ export default function RootLayout({ children }) {
   const isMaking = pathname?.includes("making");
   const isDetail = pathname?.includes("detail");
   const isStat = pathname?.includes("stat");
-  const isHome = !(isMaking || isDetail || isStat);
+  const isInfo = pathname?.includes("info");
+  const isHome = !(isMaking || isDetail || isStat || isInfo);
   console.log("isHome", isHome, isDetail, isMaking, pathname);
 
   return (
@@ -60,9 +61,12 @@ export default function RootLayout({ children }) {
           )}
           {isMaking && <div className="font-bold text-xl">Making Route</div>}
           {isStat && <div className="font-bold text-xl">Stat</div>}
+          {isInfo && <div className="font-bold text-xl">Information</div>}
           {isDetail && <RouteName />}
 
-          {(isMaking || isDetail || isStat) && <div className="w-8 h-8"></div>}
+          {(isMaking || isDetail || isStat || isInfo) && (
+            <div className="w-8 h-8"></div>
+          )}
           {isHome && (
             <a href="/info" className="pt-3 pr-6">
               <Info />

@@ -1,50 +1,65 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Collaborator from "../../components/icons/Collaborator";
 
 export default function InfoPage() {
   return (
-    <div className="w-full h-[calc(100svh-92px)] flex flex-col items-center justify-center">
+    <div className="w-full h-[calc(100svh-54px)] flex flex-col items-center">
       <div className="flex flex-col flex-1 items-center justify-center">
         <motion.div
-          className="flex items-center gap-6"
-          initial={{ opacity: 0, scale: 0}}
+          className="flex items-center justify-center gap-4 mb-20"
+          initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1.5 }}
           transition={{ duration: 2.0 }}
         >
           <Image
-            width={120}
-            height={120}
-            src="/hanbat-fimo.png"
+            width={100}
+            height={100}
+            src="/hanbat-logo.png"
             alt="hanbat univ. and fimo logo"
           />
+          <Collaborator />
           <Image
-            width={120}
-            height={120}
-            src="/logo.png"
+            width={100}
+            height={100}
+            src="/fimo-logo.png"
             className="rounded-xl overflow-hidden transition-opacity"
             alt="Dietnam logo"
           />
         </motion.div>
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="font-extrabold text-5xl my-10"
+          className="relative my-10 w-full h-fit"
         >
-          Dietnam
-        </motion.h2>
+          <Image
+            src={"/no-bg-logo.png"}
+            alt="dietnam logo"
+            width={150}
+            height={150}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+          />
+          <div className="absolute top-1/2 left-1/2 z-5  size-[200px]  bg-white opacity-70 -translate-x-1/2 -translate-y-1/2" />
+          <Image
+            src={"/dietnam-font.png"}
+            alt="dietnam logo"
+            width={300}
+            height={3000}
+            className="absolute top-1/2 z-10 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+          />
+        </motion.div>
 
         <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 2 }}
-        className="my-10 absolute bottom-0 -translate-x-1/2 left-1/2"
-      >
-        <div className="font-serif text-lg">Powered by Wemap</div>
-        <div className="font-serif text-lg">Developed by Gil, Ha, Park</div>
-      </motion.div>
-
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 2 }}
+          className="my-10 absolute bottom-0 -translate-x-1/2 left-1/2"
+        >
+          <div className="font-serif text-lg">Powered by Wemap</div>
+          <div className="font-serif text-lg">Developed by Gil, Ha, Park</div>
+        </motion.div>
       </div>
     </div>
   );
