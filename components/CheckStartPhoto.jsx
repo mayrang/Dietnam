@@ -48,8 +48,7 @@ export default function CheckStartPhoto() {
     <div className="flex flex-col gap-4 items-center">
       <StartPlace />
       <div className="flex w-full  items-center gap-2">
-        <div className="size-8 " />
-        <div className=" border-2   cursor-pointer w-full h-[250px] border-solid  rounded-md border-gray-300 shadow flex justify-center items-center overflow-hidden">
+      <div className="cursor-pointer w-full h-[250px] rounded-3xl shadow-xl flex justify-center items-center overflow-hidden">
           <Image
             src={startImage}
             className="w-full h-full object-cover"
@@ -60,7 +59,6 @@ export default function CheckStartPhoto() {
         </div>
       </div>
       <div className="flex w-full  items-center gap-2">
-        <div className="size-8 " />
         <div className="rounded-lg w-full  p-4 border-solid border-2 border-gray-300 shadow ">
           <div className=" flex items-center gap-1 mb-2 ">
             <Image
@@ -101,7 +99,7 @@ export default function CheckStartPhoto() {
       </div>
       <button
         onClick={handleStart}
-        className="px-7 rounded-md font-bold cursor-pointer py-2 border-2 border-solid border-black "
+        className="px-7 rounded-md font-bold cursor-pointer py-2 border-2 border-solid border-gray-300 shadow "
       >
         Start
       </button>

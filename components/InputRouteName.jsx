@@ -20,13 +20,13 @@ export default function InputRouteName() {
       <Map />
       {isInput ? (
         <input
-          className="text-lg w-full px-2 py-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg"
+          className="text-base w-full px-2 py-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg"
           value={routeName}
           onChange={handleChange}
         />
       ) : (
-        <div className="text-gray-500 text-lg italic w-full py-2 px-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg ">
-          {routeName === "" ? "Enter your Route Name" : routeName}
+        <div className="text-gray-500 text-base italic w-full py-2 px-2 flex-1 border-solid border-gray-200 shadow-md rounded-lg ">
+          {routeName === "" ? "Enter Route Name" : routeName}
         </div>
       )}
       <button onClick={() => setIsInput((prev) => !prev)}>
