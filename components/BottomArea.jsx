@@ -9,7 +9,7 @@ import CheckFinishPhoto from "./CheckFinishPhoto";
 export default function BottomArea() {
   const { step } = useStepStore();
   return (
-    <div className="absolute p-6 bottom-0 w-5/6 mx-auto left-0 bg-white z-20 right-0 rounded-t-3xl border-solid border-gray-100 border-t-2 border-x-2 shadow-2xl">
+    <div className="absolute p-6 bottom-0 w-5/6 mx-auto left-0 bg-white z-20 right-0 rounded-t-3xl shadow-2xl">
       {step === "startPhoto" && <StartPhoto />}
       {step === "checkStartPhoto" && <CheckStartPhoto />}
       {step === "recording" && <Recording />}

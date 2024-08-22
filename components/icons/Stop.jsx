@@ -6,10 +6,11 @@ export default function Stop() {
       width="32"
       height="32"
       fill="none"
-      stroke="currentColor"
+      stroke="#5f5d5d"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
+      class="mb-3"
     >
       <circle cx="12" cy="12" r="10" />
       <rect height="6" width="6" x="9" y="9" />
