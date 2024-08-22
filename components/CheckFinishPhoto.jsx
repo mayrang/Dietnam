@@ -54,7 +54,7 @@ export default function CheckFinishPhoto() {
         },
       ])
       .select();
-    router.replace(`/detail/${data[0].id}`);
+window?.location.href = `/detail/${data[0]?.id}`;
     console.log(route);
   };
 
