@@ -8,7 +8,7 @@ export default function Barchart({ data }) {
         <Bar dataKey="value" fill="#8884d8" />
         <XAxis
           dataKey="name"
-          ticks={["1", "7", "14", "21", "30d-."]} // 1, 12, 24를 표시
+          ticks={["1", "7", "14", "21", "30"]} // 1, 12, 24를 표시
           interval={0}
           allowDataOverflow={true}
         />

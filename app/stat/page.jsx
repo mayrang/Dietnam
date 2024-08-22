@@ -132,7 +132,7 @@ const lineData = [
     km: 2310,
   },
   {
-    name: "24h--.",
+    name: "24  -.",
     steps: 3000,
     km: 2320,
   },
@@ -168,7 +168,7 @@ const barData = [
   { name: "27", value: 1100 },
   { name: "28", value: 1800 },
   { name: "29", value: 4150 },
-  { name: "30d-.", value: 2400 },
+  { name: "30", value: 2400 },
 ];
 
 import Piechart from "../../components/Piechart";
@@ -178,7 +178,7 @@ import Barchart from "../../components/Barchart";
 export default function StatPage() {
   return (
     <div className="flex flex-col gap-2 p-4">
-      <h2 className="font-bold text-2xl ml-4">{"Today's"}</h2>
+      <h2 className="mt-5 font-bold text-3xl ml-4">{"Daily"}</h2>
       <div className="flex items-center w-full h-32 justify-between mt-3">
         <Piechart data={data01} type="Step" number="1638" />
 
@@ -188,6 +188,7 @@ export default function StatPage() {
       <div className="w-full h-[166px] mt-6">
         <Linechart data={lineData} />
       </div>
+      <h2 className="mt-8 font-bold text-3xl ml-4">{"Monthly"}</h2>
       <div className="w-full h-[166px] mt-6">
         <Barchart data={barData} />
       </div>

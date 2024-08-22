@@ -15,7 +15,7 @@ export default function Linechart({ data }) {
       <AreaChart data={data}>
         <XAxis
           dataKey="name"
-          ticks={["1", "12", "24h--."]} // 1, 12, 24를 표시
+          ticks={["1", "12", "24  -."]} // 1, 12, 24를 표시
           interval={0}
           allowDataOverflow={true}
         />
