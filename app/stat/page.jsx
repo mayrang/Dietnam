@@ -177,19 +177,19 @@ import Barchart from "../../components/Barchart";
 
 export default function StatPage() {
   return (
-    <div className="flex flex-col gap-2 p-4">
-      <h2 className="mt-5 font-bold text-3xl ml-4">{"Daily"}</h2>
-      <div className="flex items-center w-full h-32 justify-between mt-3">
+    <div className="flex flex-col  gap-2 p-4">
+      <h2 className=" font-bold text-2xl ml-4">{"Daily"}</h2>
+      <div className="flex items-center w-full h-28 justify-between mt-2">
         <Piechart data={data01} type="Step" number="1638" />
 
         <Piechart data={data02} type="Km" number="1.8km" />
         <Piechart data={data03} type="Time" number="1.0h" />
       </div>
-      <div className="w-full h-[166px] mt-6">
+      <div className="w-full h-40 mt-6">
         <Linechart data={lineData} />
       </div>
-      <h2 className="mt-8 font-bold text-3xl ml-4">{"Monthly"}</h2>
-      <div className="w-full h-[166px] mt-6">
+      <h2 className="mt-6 font-bold text-2xl ml-4">{"Monthly"}</h2>
+      <div className="w-full h-40 mt-6">
         <Barchart data={barData} />
       </div>
     </div>

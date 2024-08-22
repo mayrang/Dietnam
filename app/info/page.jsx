@@ -6,11 +6,11 @@ import Collaborator from "../../components/icons/Collaborator";
 export default function InfoPage() {
   return (
     <div className="w-full h-[calc(100svh-54px)] flex flex-col items-center">
-      <div className="flex flex-col flex-1 items-center justify-center">
+      <div className="flex flex-col flex-1 items-center justify-around">
         <motion.div
-          className="flex items-center justify-center gap-4 mb-20"
+          className="flex items-center justify-center gap-4 "
           initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1.5 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2.0 }}
         >
           <Image
@@ -56,7 +56,7 @@ export default function InfoPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3.5, delay: 2 }}
-          className="my-10 absolute bottom-10 -translate-x-1/2 left-1/2 text-center"
+          className="my-10 w-full flex flex-col items-center justify-center text-center"
         >
           <div className="font-serif text-lg">Powered by Wemap</div>
           <div className="font-serif text-lg">Developed by Gil, Ha, Park</div>
