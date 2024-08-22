@@ -54,7 +54,9 @@ export default function CheckFinishPhoto() {
         },
       ])
       .select();
-window?.location.href = `/detail/${data[0]?.id}`;
+    if (typeof window !== "undefined") {
+      window.location.href = "/about";
+    }
     console.log(route);
   };
 
