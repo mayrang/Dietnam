@@ -85,7 +85,6 @@ export default function StartPhoto() {
     <div className="flex flex-col gap-4 items-center">
       <StartPlace />
       <div className="flex w-full  items-center gap-2">
-        <div className="size-8 " />
         <button
           onClick={() => setIsStartCamera(true)}
           className=" border-2   cursor-pointer w-full h-20 rounded-md border-solid border-gray-300 flex justify-center items-center shadow"
