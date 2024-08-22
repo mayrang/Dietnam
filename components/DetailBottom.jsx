@@ -163,8 +163,8 @@ export default function DetailBottom() {
     }
   };
   return (
-    <div className="absolute p-6 bottom-0 w-5/6 mx-auto left-0  bg-white z-20 right-0 rounded-t-md  border-solid border-black  border-t-2 border-x-2 ">
-      <div className=" flex items-center gap-1 mb-2 -mt-3">
+    <div className="absolute p-6 bottom-0 w-5/6 mx-auto left-0 bg-white z-20 right-0 rounded-t-3xl shadow-2xl">
+      <div className="flex items-center gap-1 mb-2 -mt-2">
         {data?.type === "running" ? (
           <Image
             src={"/running.png"}
@@ -189,24 +189,24 @@ export default function DetailBottom() {
         <div className="flex-1 pl-2 flex items-center gap-1">
           <Clock />
           <div>
-            {data.time ?? 0}분 {" / "}
+            {data.time ?? 0}m {" / "}
             {data.distance ?? 0}km
           </div>
         </div>
       </div>
       <FinishPlace />
-      <div className="w-full flex justify-center items-center">
+      <div className="mb-2 w-full flex justify-center items-center">
         {recording ? (
           <button
             onClick={finishAutoRecordButtonListener}
-            className="px-7 font-bold mt-4  py-2 cursor-pointer border-2 border-solid border-black "
+            className="px-7 font-bold mt-4  py-2 cursor-pointer border-2 border-solid border-gray-200 rounded-md shadow-md "
           >
             Stop
           </button>
         ) : (
           <button
             onClick={locationAutoButtenListener}
-            className="px-7 font-bold mt-4  py-2 cursor-pointer border-2 border-solid border-black "
+            className="px-7 font-bold mt-4  py-2 cursor-pointer border-2 border-solid border-gray-200 rounded-md shadow-md"
           >
             Start
           </button>

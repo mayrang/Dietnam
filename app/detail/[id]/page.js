@@ -99,11 +99,19 @@ export default function Detail() {
               data.start_image ?? ""
             })`;
 
+            startImageEl.style.borderRadius = "20%"
+            startImageEl.style.overflow = "hidden"
+            startImageEl.style.boxShadow = "0 20px 20px -5px rgb(0 0 0 / 0.3)"
+
             var finishImageEl = document.createElement("div");
             finishImageEl.className = "finish-image";
             finishImageEl.style.backgroundImage = `url(${
               data.finish_image ?? ""
             })`;
+
+            finishImageEl.style.borderRadius = "20%"
+            finishImageEl.style.overflow = "hidden"
+            finishImageEl.style.boxShadow = "0 20px 20px -5px rgb(0 0 0 / 0.3)"
 
             if (horizontalDirection === "right") {
               startImageEl.style.right = "20px";
