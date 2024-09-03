@@ -9,6 +9,7 @@
 </p>
 
 ## 📚 Table of Contents
+- [Internship Overview](#internship-overview)
 - [TEAM Introduction](#team-introduction)
 - [Service Introduction](#service-introduction)
 - [Main Features](#main-features)
@@ -16,6 +17,12 @@
 - [Design](#design)
 - [What's Next?](#whats-next)
 - [For iOS App](#ios-app)
+
+## Internship Overview
+- Duration: 2024.08.11 – 2024.08.24  
+- Country: 🇻🇳  
+- City: Hanoi  
+- Company: FIMO in Hanoi University  
 
 ## TEAM Introduction
 
