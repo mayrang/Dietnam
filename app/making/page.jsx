@@ -9,6 +9,7 @@ import { useCurrentMarkerStore, useMapStore } from "../../store/making";
 import useCurrentPosition from "../../hooks/useCurrentPosition";
 
 const MakingPage = () => {
+  console.log(1);
   const { currentMarker, setCurrentMarker } = useCurrentMarkerStore();
   const { map, setMap } = useMapStore();
 
