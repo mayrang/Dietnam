@@ -11,9 +11,9 @@
 ## 📚 Table of Contents
 - [TEAM Introduction](#team-introduction)
 - [Service Introduction](#service-introduction)
+- [Main Features](#main-features)
 - [Presentation](#presentation)
 - [Design](#design)
-- [Main Features](#main-features)
 - [What's Next?](#whats-next)
 - [For iOS App](#ios-app)
 
@@ -49,8 +49,13 @@ I can see why you came up with this idea!!!
 > 아래 [발표자료](https://www.canva.com/design/DAGOcRircdI/g6b3hOBDonfR-kCOw33C6Q/view?utm_content=DAGOcRircdI&utm_campaign=designshare&utm_medium=link&utm_source=editor)를 확인하면  
 > 왜 이런 아이디어를 생각했는지 알 수 있습니다!!!  
 
+## Main Features
 
+![스크린샷 2024-09-03 11 13 42](https://github.com/user-attachments/assets/83f78698-c1f3-4a8d-85f9-20e3fb2fb5c6)
+<img src=https://github.com/user-attachments/assets/29f1b1f7-be05-403d-ae5e-6bdf4dea014b width=400> <img src=https://github.com/user-attachments/assets/a52f4b63-61cc-4004-a62d-23a4c767c6dc width=400> 
 
+**You can check all the explanations of the main features in [the presentation](https://www.figma.com/design/nR0y5DmoEMoaKAxiRVRtI7/Dietnam-Design?node-id=0-1&t=Ujkc6S5WU5OIh0tx-0).**
+> [발표자료](https://www.figma.com/design/nR0y5DmoEMoaKAxiRVRtI7/Dietnam-Design?node-id=0-1&t=Ujkc6S5WU5OIh0tx-0)에서 주요 기능들에 대한 설명을 모두 확인할 수 있습니다.
 
 ## Presentation 
 
@@ -60,7 +65,8 @@ I can see why you came up with this idea!!!
 
 ## Design
 
-<img src="https://github.com/HBNUxFIMO/DietNam/raw/main/images/figmaLogo.png" alt="img" width=200 />
+![image](https://github.com/user-attachments/assets/a67f6a3c-2c2f-4980-a2b2-ed6ee049cdca)
+
 
 [[FIgma] - Dietnam](https://www.figma.com/design/nR0y5DmoEMoaKAxiRVRtI7/Dietnam-Design?node-id=0-1&t=Ujkc6S5WU5OIh0tx-0)
 
@@ -68,48 +74,36 @@ I can see why you came up with this idea!!!
 
 This is an app flow design that visually expresses the route creation process of the Dietnam app.
 
-(이 앱 플로우 디자인은 Dietnam 앱의 경로 생성 과정을 시각적으로 나타냅니다.)
+> 이 앱 플로우 디자인은 Dietnam 앱의 경로 생성 과정을 시각적으로 나타냅니다.
 
 - **Design Component**
 
 This design components section contains the visual elements of the Dietnam app.
-
-(이 디자인 컴포넌트 섹션은 Dietnam 앱의 시각적 요소를 포함하고 있습니다.)
-
-
-
-## Main Features
-
-![스크린샷 2024-09-03 11 13 42](https://github.com/user-attachments/assets/83f78698-c1f3-4a8d-85f9-20e3fb2fb5c6)
-<img src=https://github.com/user-attachments/assets/29f1b1f7-be05-403d-ae5e-6bdf4dea014b width=325> <img src=https://github.com/user-attachments/assets/a52f4b63-61cc-4004-a62d-23a4c767c6dc width=325> 
-
-**You can check all the explanations of the main features in the presentation.**
-
-(발표자료에서 주요 기능들에 대한 설명을 모두 확인할 수 있습니다.)
+> 이 디자인 컴포넌트 섹션은 Dietnam 앱의 시각적 요소를 포함하고 있습니다.
 
 ## What's Next?
 
 **Our first goal was to provide user functionality to share routes with each other!**
 
-(우리의 첫 번째 목표는 사용자 간의 경로 공유 기능을 제공하는 것이었습니다!)*
+> 우리의 첫 번째 목표는 사용자 간의 경로 공유 기능을 제공하는 것이었습니다!
 
 - *Tracking user health.*
-  *(사용자의 건강 추적.)*
+> 사용자의 건강 추적
 - *Sharing root systems.*
-  *(경로 시스템 공유.)*
+> 경로 시스템 공유
 - *Recommend any Nice Route near your Current Location.*
-  *(현재 위치 근처의 좋은 경로 추천.)*
+> 현재 위치 근처의 좋은 경로 추천
 - *Analyzing your health conditions, and teaching workout methods.*
-  *(사용자의 건강 상태 분석 및 운동 방법 안내.)*
+> 사용자의 건강 상태 분석 및 운동 방법 안내.
 - *etcs..*
-  *(기타 등등..)*
+> 기타 등등..
 
 
 
 ## iOS App
 
-**For the ios app**
-**Developing a new SDK that supports ARM.**
+**For the iOS app,**  
+**We are Developing a new SDK that supports ARM.**
 
 [[Github] - WeMap_ARM64](https://github.com/HBNUxFIMO/WeMap_ARM64)
 
