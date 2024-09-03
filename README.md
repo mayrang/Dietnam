@@ -9,14 +9,15 @@
 </p>
 
 ## 📚 Table of Contents
-- [Internship Overview](#internship-overview)
-- [TEAM Introduction](#team-introduction)
-- [Service Introduction](#service-introduction)
-- [Main Features](#main-features)
-- [Presentation](#presentation)
-- [Design](#design)
-- [What's Next?](#whats-next)
-- [For iOS App](#ios-app)
+[1. Internship Overview](#internship-overview)  
+[2. TEAM Introduction](#team-introduction)  
+[3. Service Introduction](#service-introduction)  
+[4. Main Features](#main-features)  
+[5. Presentation](#presentation)  
+[6. Design](#design)  
+[7. Stacks & Tools](#stacks--tools)  
+[8. What's Next?](#whats-next)  
+[9. For iOS App](#ios-app)  
 
 ## Internship Overview
 - Duration: `2024.08.11 – 2024.08.24`
@@ -87,6 +88,9 @@ This is an app flow design that visually expresses the route creation process of
 
 This design components section contains the visual elements of the Dietnam app.
 > 이 디자인 컴포넌트 섹션은 Dietnam 앱의 시각적 요소를 포함하고 있습니다.
+
+## Stacks & Tools
+![stacks](https://github.com/user-attachments/assets/d1293696-d0f0-408e-bae2-699a382560fd)
 
 ## What's Next?
 
