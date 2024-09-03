@@ -19,10 +19,10 @@
 - [For iOS App](#ios-app)
 
 ## Internship Overview
-- Duration: 2024.08.11 – 2024.08.24  
-- Country: 🇻🇳  
-- City: Hanoi  
-- Company: FIMO in Hanoi University  
+- Duration: `2024.08.11 – 2024.08.24`
+- Country: 🇻🇳   
+- City: `Hanoi`  
+- Company: `FIMO in Hanoi University` 
 
 ## TEAM Introduction
 
