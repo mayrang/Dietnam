@@ -27,7 +27,7 @@ export default function CarouselCard({ data }) {
           const initializeMap = () => {
             const map = new window.wemapgl.WeMap({
               container: mapContainer.current,
-              key: "YZkGTFFioePZWDhTolBEFiRFJHDbanHW",
+              key: process.env.NEXT_PUBLIC_WEMAP_KEY,
               style: "bright",
               center: center,
               urlController: false,
@@ -97,7 +97,7 @@ export default function CarouselCard({ data }) {
           ref={mapContainer}
           className="h-full w-full"
         ></div>
-      </div>    
+      </div>
       <DataCard data={data} />
     </a>
   );
